@@ -2,24 +2,18 @@ import Image from "next/image";
 
 export default function Home() {
   return (
-    <div className="grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20 font-[family-name:var(--font-geist-sans)]">
-      <main className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/caleb.svg"
-          alt="page_logo"
-          width={500}
-          height={38}
-          priority
-        />
-        <ol className="list-inside list-decimal text-sm text-center sm:text-left font-[family-name:var(--font-geist-mono)]">
-          <li className="mb-2">
-            Hi, this is my page...
-            {/* <code className="bg-black/[.05] dark:bg-white/[.06] px-1 py-0.5 rounded font-semibold">
-        
-            </code> */}
-          </li>
-        </ol>
+    <div className="grid place-items-center p-20">
+      <nav className="bg-gray-800 w-[90vw] mx-auto p-4 flex justify-center items-center">
+        <h1 className=" text-5xl font-bold text-white">
+          CALEB KRAUTER
+        </h1>
+        <div className="pl-6">
+          <button className="bg-gray-900 text-white py-2 px-4 rounded-full hover:bg-red-950"><Image src="/github-mark.png" alt="icon" width={24} height={24} className="mr-1"></Image>
+          </button>
+        </div>
+      </nav>
+      <div className="flex flex-col gap-8 row-start-2 items-center sm:items-start">
+
 
         <div className="flex gap-4 items-center flex-col sm:flex-row">
           <a
@@ -46,7 +40,7 @@ export default function Home() {
             Read our docs
           </a>
         </div>
-      </main>
+      </div>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
         <a
           className="flex items-center gap-2 hover:underline hover:underline-offset-4"
