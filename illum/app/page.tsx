@@ -19,7 +19,7 @@ export default function Home() {
           </button>
         </a>
       </nav>
-      <main className='p-10'>
+      <main className='grid grid-cols-7 w-screen h-screen'>
         <StageCard title='Project 1' thumbnail='/demo.webp'></StageCard>
       </main>
     </div>

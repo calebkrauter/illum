@@ -10,7 +10,7 @@ interface card_props {
 // TODO Make card clickable and transform as a modal.
 const stage_card: React.FC<card_props> = ({ title, thumbnail }) => {
     return (
-        <div className="bg-white rounded-xl shadow-md overflow-hidden w-80">
+        <div className="col-span-5 col-start-2 place-self-center bg-white rounded-xl shadow-md overflow-hidden w-[50%] h-[35%]">
             {thumbnail && (
                 <div className="w-full h-40 relative">
                     <Image src={thumbnail} alt={title} layout="fill" objectFit="cover" />
