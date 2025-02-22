@@ -1,24 +1,27 @@
 import Image from 'next/image';
-
 interface card_props {
     title: string
-    thumbnail?: string
+    thumbnail?: string,
+    width?: number,
+    height?: number,
 }
 // TODO make this card dynamic so that the size can be passed in optionally with a default otherwise used.
 // TODO Make the Title appear centered on the image without a banner. 
 // TODO Adjust sizing. 
 // TODO Make card clickable and transform as a modal.
-const stage_card: React.FC<card_props> = ({ title, thumbnail }) => {
+const stage_card: React.FC<card_props> = ({ title, thumbnail, width = 60, height = 75 }) => {
     return (
-        <div className="col-span-5 col-start-2 place-self-center bg-white rounded-xl shadow-md overflow-hidden w-[50%] h-[35%]">
+        <div className='pt-10 col-span-5 col-start-2 place-self-center shadow-md overflow-hidden] transform hover:scale-110 transition-transform duration-300 group'
+            style={{ width: `${width}%`, height: `${height}%` }}>
             {thumbnail && (
-                <div className="w-full h-40 relative">
-                    <Image src={thumbnail} alt={title} layout="fill" objectFit="cover" />
+                <div className='w-full h-full relative'>
+                    <Image className='rounded-l transition-all duration-300 group-hover:rounded-xl' src={thumbnail} alt={title} layout='fill' objectFit='cover' />
+                    <div className='absolute inset-0 flex items-center justify-center'>
+                        <h2 className='text-3xl font-bold text-white bg-black bg-opacity-30 px-5 py-3 rounded-l transition-all duration-300 group-hover:bg-opacity-0 group-hover:text-opacity-50 select-none'>{title}</h2>
+                    </div>
                 </div>
             )}
-            <div className="p-4">
-                <h2 className="text-xl font-bold">{title}</h2>
-            </div>
+
         </div>
     )
 }

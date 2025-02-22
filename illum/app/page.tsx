@@ -3,7 +3,7 @@ import StageCard from './components/stage_card';
 
 export default function Home() {
   return (
-    <div className='grid place-items-center p-20'>
+    <div className='grid place-items-center pt-10'>
       <nav className='bg-gray-800 w-[90vw] mx-auto p-4 flex justify-center items-center'>
         <h1 className=' text-5xl font-bold text-white'>
           CALEB KRAUTER
@@ -20,7 +20,9 @@ export default function Home() {
         </a>
       </nav>
       <main className='grid grid-cols-7 w-screen h-screen'>
+        <StageCard title='Project 1' thumbnail='/demo.webp' width={75} height={90}></StageCard>
         <StageCard title='Project 1' thumbnail='/demo.webp'></StageCard>
+
       </main>
     </div>
   );
