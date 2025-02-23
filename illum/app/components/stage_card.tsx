@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import { useState } from 'react';
+
 interface card_props {
     title: string
     thumbnail?: string,
@@ -9,10 +11,20 @@ interface card_props {
 // TODO Make the Title appear centered on the image without a banner. 
 // TODO Adjust sizing. 
 // TODO Make card clickable and transform as a modal.
+
+
 const stage_card: React.FC<card_props> = ({ title, thumbnail, width = 60, height = 75 }) => {
+    const [isOpen, setIsOpen] = useState(false)
+
+    const handleClick = () => {
+        setIsOpen(!isOpen);
+    }
+
     return (
         <div className='pt-10 col-span-5 col-start-2 place-self-center shadow-md overflow-hidden] transform hover:scale-110 transition-transform duration-300 group'
-            style={{ width: `${width}%`, height: `${height}%` }}>
+            style={{ width: `${width}%`, height: `${height}%` }}
+            onClick={handleClick}
+        >
             {thumbnail && (
                 <div className='w-full h-full relative'>
                     <Image className='rounded-l transition-all duration-300 group-hover:rounded-xl' src={thumbnail} alt={title} layout='fill' objectFit='cover' />

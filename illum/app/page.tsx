@@ -1,7 +1,13 @@
+'use client'
 import Image from 'next/image';
 import StageCard from './components/stage_card';
-
+import React, { useState } from 'react';
+import Modal from './components/modal';
 export default function Home() {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const openModal = () => setIsModalOpen(true);
+  const closeModal = () => setIsModalOpen(false);
   return (
     <div className='grid place-items-center pt-10'>
       <nav className='bg-gray-800 w-[90vw] mx-auto p-4 flex justify-center items-center'>
@@ -19,7 +25,13 @@ export default function Home() {
           </button>
         </a>
       </nav>
+
       <main className='grid grid-cols-7 w-screen h-screen'>
+
+        <Modal isOpen={isModalOpen} onClose={closeModal}>
+          <h3 className="text-lg font-bold">This is a dynamic modal!</h3>
+          <p>Put any content here like forms, images, text, etc.</p>
+        </Modal>
         <StageCard title='Project 1' thumbnail='/demo.webp' width={75} height={90}></StageCard>
         <StageCard title='Project 1' thumbnail='/demo.webp'></StageCard>
 
