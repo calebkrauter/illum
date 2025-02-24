@@ -8,9 +8,9 @@ interface descriptionCardProps {
 
 const DescriptionCard: React.FC<descriptionCardProps> = ({ title, text, className }) => {
     return (
-        <div className={`p-4 border rounded-lg shadow-md z-20 ${className}`}  >
-            <h1 className="text-xl font-bold">{title}</h1>
-            <p>{text}</p>
+        <div className={`min-h-full max-h-full border rounded-lg shadow-md z-20 ${className}`}  >
+            <h1 className={`text-xl font-bold ${className}`}>{title}</h1>
+            <p className={`${className}`}>{text}</p>
         </div >
     )
 }
