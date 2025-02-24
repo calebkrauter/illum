@@ -3,6 +3,7 @@ import Image from 'next/image';
 import StageCard from './components/stage_card';
 import React, { useState } from 'react';
 import Modal from './components/modal';
+import DescriptionCard from './components/description_card';
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -26,15 +27,9 @@ export default function Home() {
         </a>
       </nav>
 
-      <main className='grid grid-cols-7 w-screen h-screen'>
-
-        <Modal isOpen={isModalOpen} onClose={closeModal}>
-          <h3 className="text-lg font-bold">This is a dynamic modal!</h3>
-          <p>Put any content here like forms, images, text, etc.</p>
-        </Modal>
-        <StageCard title='Project 1' thumbnail='/demo.webp' width={75} height={90}></StageCard>
+      <main className='pt-10 grid grid-cols-7 w-screen h-screen'>
+        <StageCard title='Project 1' thumbnail='/demo.webp' width={75} height={75}></StageCard>
         <StageCard title='Project 1' thumbnail='/demo.webp'></StageCard>
-
       </main>
     </div>
   );
