@@ -1,5 +1,7 @@
 import React from 'react';
 import TextCard from './text_card';
+import ListCard from './list_card';
+
 import OutsideClickHandler from 'react-outside-click-handler';
 
 interface ModalProps {
@@ -23,7 +25,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, className, set
         <OutsideClickHandler onOutsideClick={() => {
             setIsOpen(false)
         }}>
-            <div className={`grid grid-cols-[60%_40%] grid-rows-[25%_75%] borderborder-gray-500 fixed inset-0 items-center justify-center z-10 ${className} ${isOpen ? 'bg-opacity-100' : 'bg-opacity-0'}`}>
+            <div className={`grid grid-cols-[70%_30%] grid-rows-[30%_70%] borderborder-gray-500 fixed inset-0 items-center justify-center z-10 ${className} ${isOpen ? 'bg-opacity-100' : 'bg-opacity-0'}`}>
 
                 {/* TODO Use this format with colors as a good debug mode for the layout component. */}
                 {/* <div className="bg-blue-500 p-4 outline outline-2 outline-blue-500 h-full">Item 1</div>
@@ -33,9 +35,9 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, className, set
 
 
                 <TextCard className={`bg-gray-700 ${isOpen ? 'bg-opacity-100' : 'bg-opacity-0 border-transparent text-transparent'}`} title='Title' text='description'></TextCard>
+                <ListCard className={`bg-gray-700 ${isOpen ? 'bg-opacity-100' : 'bg-opacity-0 border-transparent text-transparent'}`} title='Summary' text='*2-24-2025*Web Development' delimiter='*'></ListCard>
                 <TextCard className={`bg-gray-700 ${isOpen ? 'bg-opacity-100' : 'bg-opacity-0 border-transparent text-transparent'}`} title='Title' text='description'></TextCard>
-                <TextCard className={`bg-gray-700 ${isOpen ? 'bg-opacity-100' : 'bg-opacity-0 border-transparent text-transparent'}`} title='Title' text='description'></TextCard>
-                <TextCard className={`bg-gray-700 ${isOpen ? 'bg-opacity-100' : 'bg-opacity-0 border-transparent text-transparent'}`} title='Title' text='description'></TextCard>
+                <ListCard className={`bg-gray-700 ${isOpen ? 'bg-opacity-100' : 'bg-opacity-0 border-transparent text-transparent'}`} title='Stack' text='*React*Typescript*Next.js*Tailwind' delimiter='*'></ListCard>
             </div >
         </OutsideClickHandler>
 

@@ -19,7 +19,9 @@ const stage_card: React.FC<card_props> = ({ title, thumbnail, width = 60, height
     const [isOpen, setIsOpen] = useState(false)
 
     const handleClick = () => {
-        setIsOpen(!isOpen)
+        if (!isOpen) {
+            setIsOpen(!isOpen)
+        }
     }
 
 
