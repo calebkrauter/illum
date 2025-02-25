@@ -14,7 +14,7 @@ const ListCard: React.FC<listCardProps> = ({ title, text, className, delimiter =
 
     return (
         <div className={`p-5 min-h-full max-h-full border rounded-lg shadow-md z-20 ${className}`}  >
-            <h1 className={`text-xl font-bold ${className}`}>{title}</h1>
+            <h1 className={`text-xl font-bold p-2 ${className}`}>{title}</h1>
             <div className={`pl-5 ${className}`}>{listEntry}</div>
         </div >
     )
