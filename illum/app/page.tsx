@@ -3,7 +3,7 @@ import Image from 'next/image';
 import StageCard from './components/stage_card';
 import React, { useState } from 'react';
 import Modal from './components/modal';
-import DescriptionCard from './components/description_card';
+import DescriptionCard from './components/text_card';
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 

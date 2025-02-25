@@ -1,12 +1,12 @@
 import React from 'react'
 
-interface descriptionCardProps {
+interface textCardProps {
     title: string,
     text: string,
     className?: string,
 }
 
-const DescriptionCard: React.FC<descriptionCardProps> = ({ title, text, className }) => {
+const TextCard: React.FC<textCardProps> = ({ title, text, className }) => {
     return (
         <div className={`min-h-full max-h-full border rounded-lg shadow-md z-20 ${className}`}  >
             <h1 className={`text-xl font-bold ${className}`}>{title}</h1>
@@ -15,4 +15,4 @@ const DescriptionCard: React.FC<descriptionCardProps> = ({ title, text, classNam
     )
 }
 
-export default DescriptionCard
+export default TextCard

@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import DescriptionCard from './description_card';
+import DescriptionCard from './text_card';
 import Modal from './modal';
 
 interface card_props {
@@ -32,16 +32,17 @@ const stage_card: React.FC<card_props> = ({ title, thumbnail, width = 60, height
             {thumbnail && (
                 <div className='w-full h-full relative'>
 
-                    <Modal className={`transition-all duration-300 ${isOpen ? 'rounded-xl' : 'rounded-l'}`} isOpen={isOpen} onClose={() => setIsOpen(false)}>
+                    <Modal className={`transition-all duration-300 ${isOpen ? 'rounded-xl' : 'rounded-l'}`} isOpen={isOpen} onClose={() => setIsOpen(false)} setIsOpen={setIsOpen}>
                     </Modal>
                     <Image className={`${isOpen ? 'rounded-xl' : 'rounded-l transition-all duration-300 group-hover:rounded-xl '}`} src={thumbnail} alt={title} layout='fill' objectFit='cover' />
                     <div className='absolute inset-0 flex items-center justify-center'>
                         <h2 className='text-3xl font-bold text-white bg-black bg-opacity-30 px-5 py-3 rounded-l transition-all duration-300 group-hover:bg-opacity-0 group-hover:text-opacity-50 select-none'>{title}</h2>
                     </div>
                 </div>
-            )}
+            )
+            }
 
-        </div>
+        </div >
     )
 }
 
