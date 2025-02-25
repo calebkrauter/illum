@@ -8,8 +8,8 @@ interface listCardProps {
 }
 
 const ListCard: React.FC<listCardProps> = ({ title, text, className, delimiter = ' ' }) => {
-    const listEntry = text.split(delimiter).filter(entry => entry !== '').map((entry) => (
-        <li className=''>{entry}</li>
+    const listEntry = text.split(delimiter).filter(entry => entry !== '').map((entry, index) => (
+        <li key={index} className=''>{entry}</li>
     ))
 
     return (
