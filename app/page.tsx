@@ -2,8 +2,11 @@
 import Image from 'next/image';
 import StageCard from './components/stage_card';
 import React, { useState } from 'react';
+<<<<<<< Updated upstream:illum/app/page.tsx
 import Modal from './components/modal';
 import DescriptionCard from './components/text_card';
+=======
+>>>>>>> Stashed changes:app/page.tsx
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -28,8 +31,13 @@ export default function Home() {
       </nav>
 
       <main className='pt-10 grid grid-cols-7 w-screen h-screen'>
+<<<<<<< Updated upstream:illum/app/page.tsx
         <StageCard title='Project 1' thumbnail='/demo.webp' width={75} height={75}></StageCard>
         <StageCard title='Project 1' thumbnail='/demo.webp'></StageCard>
+=======
+        <StageCard title='Project 1' thumbnail='/demo.webp' width={80} height={100}></StageCard>
+        <StageCard title='Project 1' thumbnail='/demo.webp' width={70} height={90}></StageCard>
+>>>>>>> Stashed changes:app/page.tsx
       </main>
     </div>
   );
