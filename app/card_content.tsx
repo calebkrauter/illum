@@ -64,7 +64,7 @@ const cardContent: { projects: StageCardContent[] } = {
                 },
                 stack: {
                     title: "Tech Stack",
-                    text: "Vue, Nuxt.js, JavaScript"
+                    text: "Vue, Next.js, JavaScript"
                 }
             }
         }
