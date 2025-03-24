@@ -25,7 +25,7 @@ interface StageCardContent {
 const cardContent: { projects: StageCardContent[] } = {
     projects: [
         {
-            projectName: "Highlighted project",
+            name: "Highlighted project",
             date: "2025-02-24",
             content: {
                 image: {
