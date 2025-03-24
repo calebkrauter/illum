@@ -18,7 +18,7 @@ interface StageLayoutCardContent {
 interface StageCardContent {
     projectName: string,
     date: string,
-    content: StageLayoutCardContent
+    content: StageLayoutCardContent,
 }
 
 
