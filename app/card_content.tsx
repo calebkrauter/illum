@@ -60,7 +60,7 @@ const cardContent: { projects: StageCardContent[] } = {
                 },
                 description: {
                     title: "Description",
-                    text: "This project focuses on building a fast, SEO-friendly web application using Vue and Nuxt."
+                    text: "This project focuses on building a fast, SEO-friendly web application using Vue and Next."
                 },
                 stack: {
                     title: "Tech Stack",
