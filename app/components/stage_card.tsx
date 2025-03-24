@@ -33,7 +33,7 @@ const stage_card: React.FC<card_props> = ({ title, thumbnail, width = 60, height
         >
 
             {thumbnail && (
-                <div className='w-full h-full relative'>
+                <div className='w-full h-full relative group'>
 
                     <StageLayout
                         widthCollumn1='50'

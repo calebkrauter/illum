@@ -2,6 +2,15 @@
 import Image from 'next/image';
 import StageCard from './components/stage_card';
 import React, { useState } from 'react';
+import { Button } from 'rsuite';
+import { Timeline } from 'rsuite';
+import 'rsuite/dist/rsuite-no-reset.min.css';
+import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
+import 'react-vertical-timeline-component/style.min.css';
+import TimelineItem from 'rsuite/esm/Timeline/TimelineItem';
+
+
+
 export default function Home() {
   const [isModalOpen, setIsModalOpen] = useState(false);
 
@@ -25,10 +34,58 @@ export default function Home() {
         </a>
       </nav>
 
-      <main className='pt-10 grid grid-cols-7 w-screen h-screen'>
-        <StageCard title='Project 1' thumbnail='/demo.webp' width={80} height={100}></StageCard>
-        <StageCard title='Project 1' thumbnail='/demo.webp' width={70} height={90}></StageCard>
+      {/* TODO make the sizing of the line and the card dynamic. The line should extend as far as the bottom of the StageCard and not further. They should both resize nicely for different devices.
+          TODO make the circle stay enlarged when clicked into the card.
+          TODO consider making the circles interactive.
+          TODO make the timeline code into a component to simplify and generalize the code. 
+          TODO make the date wording move so that it doesn't become unenviable based on page resizing. */}
+      <main className='pt-10 grid grid-cols-12 w-screen h-screen overflow-y-auto'>
+        <div className='group' style={{ display: 'contents' }}>
+          {/* I don't like hard coding the size values here. I want it to be dynamic so that the line changes with height of stage card and they both change with site size perhaps resolution and screen size. */}
+          <div className="ml-12 col-start-2 w-1 h-[400px] bg-slate-100 relative">
+            <div className="w-8 h-8 bg-gray-400 rounded-full absolute -translate-x-1/2 -translate-y-1/2 top-1/2 group-hover:w-12 group-hover:h-12 transition-all duration-300 ease-in-out pointer-events-none flex items-center">
+              <p className='ml-16 whitespace-nowrap'>December 23</p>
+            </div>
+
+          </div>
+          <div className='col-start-4 col-span-6 h-[400px] flex justify-center'>
+
+            <StageCard title='Project 1' thumbnail='/demo.webp' width={100} height={100}></StageCard>
+
+          </div>
+        </div>
+        <div className='group' style={{ display: 'contents' }}>
+          {/* I don't like hard coding the size values here. I want it to be dynamic so that the line changes with height of stage card and they both change with site size perhaps resolution and screen size. */}
+          <div className="ml-12 col-start-2 w-1 h-[400px] bg-slate-100 relative">
+            <div className="w-8 h-8 bg-gray-400 rounded-full absolute -translate-x-1/2 -translate-y-1/2 top-1/2 group-hover:w-12 group-hover:h-12 transition-all duration-300 ease-in-out pointer-events-none flex items-center">
+              <p className='ml-16 whitespace-nowrap'>December 23</p>
+            </div>
+
+          </div>
+          <div className='col-start-4 col-span-6 h-[400px] flex justify-center'>
+
+            <StageCard title='Project 1' thumbnail='/demo.webp' width={100} height={100}></StageCard>
+
+          </div>
+        </div>
+        <div className='group' style={{ display: 'contents' }}>
+          {/* I don't like hard coding the size values here. I want it to be dynamic so that the line changes with height of stage card and they both change with site size perhaps resolution and screen size. */}
+          <div className="ml-12 col-start-2 w-1 h-[400px] bg-slate-100 relative">
+            <div className="w-8 h-8 bg-gray-400 rounded-full absolute -translate-x-1/2 -translate-y-1/2 top-1/2 group-hover:w-12 group-hover:h-12 transition-all duration-300 ease-in-out pointer-events-none flex items-center">
+              <p className='ml-16 whitespace-nowrap'>December 23</p>
+            </div>
+
+          </div>
+          <div className='col-start-4 col-span-6 h-[400px] flex justify-center'>
+
+            <StageCard title='Project 1' thumbnail='/demo.webp' width={100} height={100}></StageCard>
+
+          </div>
+        </div>
       </main >
+
+      <footer className='pt-10'></footer>
+
     </div >
   );
 }

@@ -13,7 +13,8 @@ const ListCard: React.FC<listCardProps> = ({ title, text, className, delimiter =
     ))
 
     return (
-        <div className={`p-2 h-full border rounded-lg shadow-md z-20 ${className}`}>            <h1 className={`text-xl font-bold p-2 ${className}`}>{title}</h1>
+        <div className={`p-2 h-full border rounded-lg shadow-md z-20 ${className}`}>
+            <h1 className={`text-xl font-bold p-2 ${className}`}>{title}</h1>
             <ul className={`text-lg pl-5 list-disc ${className}`}
             >{listEntry}
             </ul>
