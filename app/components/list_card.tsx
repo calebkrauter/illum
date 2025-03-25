@@ -7,7 +7,7 @@ interface listCardProps {
     delimiter?: string,
 }
 
-const ListCard: React.FC<listCardProps> = ({ title, text, className, delimiter = ' ' }) => {
+function ListCard({ title, text, className, delimiter = ' ' }): React.FC<listCardProps> {
     const listEntry = text.split(delimiter).filter(entry => entry !== '').map((entry, index) => (
         <li key={index} className='' style={{ fontSize: "clamp(.5rem, 1rem, 1.25rem)" }}>{entry}</li>
     ))
