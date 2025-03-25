@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { useState } from 'react';
-import DescriptionCard from './text_card';
-import StageLayout from './stage_layout';
+import DescriptionCard from './text-card';
+import StageLayout from './stage-layout';
 
 interface CardProps {
     title: string

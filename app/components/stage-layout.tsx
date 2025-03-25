@@ -1,8 +1,8 @@
 import React from 'react';
-import TextCard from './text_card';
-import ListCard from './list_card';
-import ImageCard from './image_card';
-import cardContent from '../card_content';
+import TextCard from './text-card';
+import ListCard from './list-card';
+import ImageCard from './image-card';
+import cardContent from '../card-content';
 import OutsideClickHandler from 'react-outside-click-handler';
 
 interface StageLayoutProps {

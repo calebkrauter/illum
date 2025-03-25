@@ -1,6 +1,6 @@
 'use client'
 import Image from 'next/image';
-import StageCard from './components/stage_card';
+import StageCard from './components/stage-card';
 import React, { useState } from 'react';
 import { Button } from 'rsuite';
 import { Timeline } from 'rsuite';
