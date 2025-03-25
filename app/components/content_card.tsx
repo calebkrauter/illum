@@ -13,10 +13,10 @@ interface ContentCardProps {
 }
 
 enum ContentCardType {
-    IMAGE = 'image',
-    TEXT = 'text',
-    LIST = 'list',
-    GENERIC = 'generic',
+    Image = 'image',
+    Text = 'text',
+    List = 'list',
+    Generic = 'generic',
 }
 function ContentCard({ type = ContentCardType.TEXT, title, text, className, delimiter = ' ', path, xPosition = '50', yPosition = '50' }: ContentCardProps) {
     let listEntry: React.ReactNode[] = []
