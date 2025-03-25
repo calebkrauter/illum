@@ -8,77 +8,285 @@ import 'rsuite/dist/rsuite-no-reset.min.css';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import TimelineItem from 'rsuite/esm/Timeline/TimelineItem';
-
-
-
+import { Tag } from 'rsuite';
+import { useEffect } from 'react';
+import Head from 'next/head';
+import { motion } from 'framer-motion';
 export default function Home() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+  const [darkMode, setDarkMode] = useState(true);
+
+
   return (
-    <div className='grid place-items-center pt-10'>
-      <nav className='bg-gray-800 w-[90vw] mx-auto p-4 flex justify-center items-center'>
-        <h1 className=' text-5xl font-bold text-white'>
-          CALEB KRAUTER
-        </h1>
-        <a href='https://github.com/calebkrauter' target='_blank' rel='noopener noreferrer' className='pl-6'>
-          <button className='bg-gray-800 text-white py-2 px-2 rounded-full hover:bg-red-900' >
-            <Image src='/github-mark-white.png' alt='icon' width={24} height={24}></Image>
-          </button>
-        </a>
-        <a href='https://www.linkedin.com/in/calebkrauter/' target='_blank' rel='noopener noreferrer' className='pl-6'>
-          <button className='bg-gray-800 text-white py-2 px-2 rounded-full hover:bg-red-900' >
-            <Image src='/ln-white-26.png' alt='icon' width={24} height={24}></Image>
-          </button>
-        </a>
-      </nav>
-
-      <main className='pt-10 grid grid-cols-12 w-screen h-screen overflow-y-auto'>
-        <div className='group' style={{ display: 'contents' }}>
-          <div className="ml-12 col-start-2 w-1 h-[400px] bg-slate-100 relative">
-            <div className="w-8 h-8 bg-gray-400 rounded-full absolute -translate-x-1/2 -translate-y-1/2 top-1/2 group-hover:w-12 group-hover:h-12 transition-all duration-300 ease-in-out pointer-events-none flex items-center">
-              <p className='ml-16 whitespace-nowrap'>December 23</p>
-            </div>
-
-          </div>
-          <div className='col-start-4 col-span-6 h-[400px] flex justify-center'>
-
-            <StageCard title='Project 1' thumbnail='/demo.webp' width={100} height={100}></StageCard>
-
-          </div>
+    <div>
+      <div className='grid place-items-center pt-10' style={{ backgroundColor: '#070c26' }}>
+        <div className='ml-auto mr-[50px]'>
         </div>
-        <div className='group' style={{ display: 'contents' }}>
-          {/* I don't like hard coding the size values here. I want it to be dynamic so that the line changes with height of stage card and they both change with site size perhaps resolution and screen size. */}
-          <div className="ml-12 col-start-2 w-1 h-[400px] bg-slate-100 relative">
-            <div className="w-8 h-8 bg-gray-400 rounded-full absolute -translate-x-1/2 -translate-y-1/2 top-1/2 group-hover:w-12 group-hover:h-12 transition-all duration-300 ease-in-out pointer-events-none flex items-center">
-              <p className='ml-16 whitespace-nowrap'>December 23</p>
+        <main className='flex w-screen h-screen mt-[50px]'>
+          <div className='w-1/3 h-screen ml-[100px]'>
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+            >
+
+              <h1 className='text-4xl xfont-bold text-gray-300'>
+                CALEB KRAUTER
+              </h1>
+              <h2 className='mt-[15px] text-xl text-gray-400'>
+                Software Developer
+              </h2>
+              <h3 className='mt-[15px] text-gray-500 w-[200px]'>
+                An elegant text describing something cool that I do.
+              </h3>
+
+
+              <div className='mt-[100%]'>
+                <a href='https://github.com/calebkrauter' target='_blank' rel='noopener noreferrer' className='pl-6'>
+                  <button className='opacity-35 hover:opacity-85' >
+                    <Image src='/github-mark-white.png' alt='icon' width={24} height={24}></Image>
+                  </button>
+                </a>
+                <a href='https://www.linkedin.com/in/calebkrauter/' target='_blank' rel='noopener noreferrer' className='pl-6'>
+                  <button className='opacity-35 hover:opacity-85' >
+                    <Image src='/In-White-26.png' alt='icon' width={24} height={24}></Image>
+                  </button>
+                </a>
+              </div>
+            </motion.div>
+
+          </div>
+
+
+
+          <motion.div className='pl-[85px] w-2/3 h-screen pb-[200px] overflow-y-scroll overflow-x-hidden'
+            initial={{ x: '100%' }}
+            whileInView={{ x: 0 }}
+            viewport={{ once: true }}
+            transition={{ type: 'spring', stiffness: 250, damping: 20 }}
+          >
+            <div className='mr-[100px]'>
+
+              <h4 className='ml-[15px] leading-7 text-gray-400 '>
+                I’m a developer with experience in software engineering, cloud deployment, and game development. I enjoy tackling complex problems through collaboration and hands-on experimentation, whether it’s optimizing a backend service, designing a game system, or deploying full-stack applications in the cloud. <br /> <br />
+
+                I recently earned my BS in Computer Science and Systems from the University of Washington, Tacoma. My work includes developing REST APIs, managing cloud-hosted MySQL databases, and building interactive web experiences with Vue.js and Node.js. I’ve also deployed applications using Docker and AWS services like ECS and RDS. <br /> <br />
+
+                Beyond web development, I have a deep interest in game programming, having contributed to multiple projects where I implemented procedural generation, UI systems, and gameplay mechanics. I also enjoy algorithmic problem-solving and have competed in programming competitions like ICPC and the Puget Sound Programming Competition. <br /> <br />
+
+                In the past, I’ve worked in IT support roles, troubleshooting software and hardware issues while documenting processes to streamline technical solutions. I also have leadership experience from my time as a shift supervisor, where I guided teams through fast-paced problem-solving and operational challenges.
+              </h4>
+              <a href='https://www.linkedin.com/in/calebkrauter/' target='_blank' rel='noopener noreferrer' className='pl-6'>
+                <motion.div
+                  className='group mt-[25px] w-full h-full hover:bg-white/5 hover:backdrop-blur-2xl rounded-lg flex hover:shadow-2xl hover:shadow-white/10'
+                  initial={{ x: '100%' }}
+                  whileInView={{ x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+
+                >
+                  <div className='m-[15px] '>
+
+                    <h4 className='group-hover:text-white w-[150px] text-sm font-semibold text-gray-200'>
+                      2024 Jan - Mar
+                    </h4>
+                  </div>
+                  <div className='m-[15px] flex-col relative'>
+
+                    <h4 className='group-hover:text-white mb-[15px] text-md font-semibold text-gray-200'>
+                      Portfolio Web App
+                      <div className='absolute inline'>
+                        <button className='ml-[15px] mt-[1px] opacity-35 group-hover:opacity-85 transition-transform duration-300 group-hover:translate-x-[5px] group-hover:translate-y-[-5px]' >
+                          <Image src='/link-arrow.svg' alt='icon' width={24} height={24}></Image>
+                        </button>
+
+                      </div>
+
+                    </h4>
+                    <h4 className='group-hover:text-white leading-6 text-sm text-gray-400 font-semibold'>
+                      A site to display my epic projects.
+                    </h4>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                      <h4 className='text-sm text-gray-300 font-semibold'>
+                        Next.js
+                      </h4>
+                    </Tag>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                      <h4 className='text-sm text-gray-300 font-semibold'>
+                        Typescript
+                      </h4>
+                    </Tag>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                      <h4 className='text-sm text-gray-300 font-semibold'>
+                        TailWind
+                      </h4>
+                    </Tag>
+
+                  </div>
+
+                </motion.div>
+              </a>
+
+              <a href='https://www.linkedin.com/in/calebkrauter/' target='_blank' rel='noopener noreferrer' className='pl-6'>
+                <motion.div
+                  className='group mt-[25px] w-full h-full hover:bg-white/5 hover:backdrop-blur-2xl rounded-lg flex hover:shadow-2xl hover:shadow-white/10'
+                  initial={{ x: '100%' }}
+                  whileInView={{ x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+
+                >
+                  <div className='m-[15px] '>
+
+                    <h4 className='group-hover:text-white w-[150px] text-sm font-semibold text-gray-200'>
+                      2024 Jan - Mar
+                    </h4>
+                  </div>
+                  <div className='m-[15px] flex-col relative'>
+
+                    <h4 className='group-hover:text-white mb-[15px] text-md font-semibold text-gray-200'>
+                      Portfolio Web App
+                      <div className='absolute inline'>
+                        <button className='ml-[15px] mt-[1px] opacity-35 group-hover:opacity-85 transition-transform duration-300 group-hover:translate-x-[5px] group-hover:translate-y-[-5px]' >
+                          <Image src='/link-arrow.svg' alt='icon' width={24} height={24}></Image>
+                        </button>
+
+                      </div>
+
+                    </h4>
+                    <h4 className='group-hover:text-white leading-6 text-sm text-gray-400 font-semibold'>
+                      A site to display my epic projects.
+                    </h4>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                      <h4 className='text-sm text-gray-300 font-semibold'>
+                        Next.js
+                      </h4>
+                    </Tag>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                      <h4 className='text-sm text-gray-300 font-semibold'>
+                        Typescript
+                      </h4>
+                    </Tag>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                      <h4 className='text-sm text-gray-300 font-semibold'>
+                        TailWind
+                      </h4>
+                    </Tag>
+
+                  </div>
+
+                </motion.div>
+              </a>
+
+              <a href='https://www.linkedin.com/in/calebkrauter/' target='_blank' rel='noopener noreferrer' className='pl-6'>
+                <motion.div
+                  className='group mt-[25px] w-full h-full hover:bg-white/5 hover:backdrop-blur-2xl rounded-lg flex hover:shadow-2xl hover:shadow-white/10'
+                  initial={{ x: '100%' }}
+                  whileInView={{ x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+
+                >
+                  <div className='m-[15px] '>
+
+                    <h4 className='group-hover:text-white w-[150px] text-sm font-semibold text-gray-200'>
+                      2024 Jan - Mar
+                    </h4>
+                  </div>
+                  <div className='m-[15px] flex-col relative'>
+
+                    <h4 className='group-hover:text-white mb-[15px] text-md font-semibold text-gray-200'>
+                      Portfolio Web App
+                      <div className='absolute inline'>
+                        <button className='ml-[15px] mt-[1px] opacity-35 group-hover:opacity-85 transition-transform duration-300 group-hover:translate-x-[5px] group-hover:translate-y-[-5px]' >
+                          <Image src='/link-arrow.svg' alt='icon' width={24} height={24}></Image>
+                        </button>
+
+                      </div>
+
+                    </h4>
+                    <h4 className='group-hover:text-white leading-6 text-sm text-gray-400 font-semibold'>
+                      A site to display my epic projects.
+                    </h4>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                      <h4 className='text-sm text-gray-300 font-semibold'>
+                        Next.js
+                      </h4>
+                    </Tag>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                      <h4 className='text-sm text-gray-300 font-semibold'>
+                        Typescript
+                      </h4>
+                    </Tag>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                      <h4 className='text-sm text-gray-300 font-semibold'>
+                        TailWind
+                      </h4>
+                    </Tag>
+
+                  </div>
+
+                </motion.div>
+              </a>
+
+              <a href='https://www.linkedin.com/in/calebkrauter/' target='_blank' rel='noopener noreferrer' className='pl-6'>
+                <motion.div
+                  className='group mt-[25px] w-full h-full hover:bg-white/5 hover:backdrop-blur-2xl rounded-lg flex hover:shadow-2xl hover:shadow-white/10'
+                  initial={{ x: '100%' }}
+                  whileInView={{ x: 0 }}
+                  viewport={{ once: true }}
+                  transition={{ type: 'spring', stiffness: 200, damping: 20 }}
+
+                >
+                  <div className='m-[15px] '>
+
+                    <h4 className='group-hover:text-white w-[150px] text-sm font-semibold text-gray-200'>
+                      2024 Jan - Mar
+                    </h4>
+                  </div>
+                  <div className='m-[15px] flex-col relative'>
+
+                    <h4 className='group-hover:text-white mb-[15px] text-md font-semibold text-gray-200'>
+                      Portfolio Web App
+                      <div className='absolute inline'>
+                        <button className='ml-[15px] mt-[1px] opacity-35 group-hover:opacity-85 transition-transform duration-300 group-hover:translate-x-[5px] group-hover:translate-y-[-5px]' >
+                          <Image src='/link-arrow.svg' alt='icon' width={24} height={24}></Image>
+                        </button>
+
+                      </div>
+
+                    </h4>
+                    <h4 className='group-hover:text-white leading-6 text-sm text-gray-400 font-semibold'>
+                      A site to display my epic projects.
+                    </h4>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                      <h4 className='text-sm text-gray-300 font-semibold'>
+                        Next.js
+                      </h4>
+                    </Tag>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                      <h4 className='text-sm text-gray-300 font-semibold'>
+                        Typescript
+                      </h4>
+                    </Tag>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                      <h4 className='text-sm text-gray-300 font-semibold'>
+                        TailWind
+                      </h4>
+                    </Tag>
+
+                  </div>
+
+                </motion.div>
+              </a>
+
             </div>
+          </motion.div>
 
-          </div>
-          <div className='col-start-4 col-span-6 h-[400px] flex justify-center'>
+        </main >
 
-            <StageCard title='Project 1' thumbnail='/demo.webp' width={90} height={80}></StageCard>
 
-          </div>
-        </div>
-        <div className='group' style={{ display: 'contents' }}>
-          {/* I don't like hard coding the size values here. I want it to be dynamic so that the line changes with height of stage card and they both change with site size perhaps resolution and screen size. */}
-          <div className="ml-12 col-start-2 w-1 h-[400px] bg-slate-100 relative">
-            <div className="w-8 h-8 bg-gray-400 rounded-full absolute -translate-x-1/2 -translate-y-1/2 top-1/2 group-hover:w-12 group-hover:h-12 transition-all duration-300 ease-in-out pointer-events-none flex items-center">
-              <p className='ml-16 whitespace-nowrap'>December 23</p>
-            </div>
-
-          </div>
-          <div className='col-start-4 col-span-6 h-[400px] flex justify-center'>
-
-            <StageCard title='Project 1' thumbnail='/demo.webp' width={100} height={100}></StageCard>
-
-          </div>
-        </div>
-      </main >
-
-      <footer className='pt-10'></footer>
+      </div >
 
     </div >
   );
