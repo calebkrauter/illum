@@ -1,13 +1,13 @@
 import React from 'react'
 
-interface listCardProps {
+interface ListCardProps {
     title: string,
     text: string,
     className?: string,
     delimiter?: string,
 }
 
-function ListCard({ title, text, className, delimiter = ' ' }): React.FC<listCardProps> {
+function ListCard({ title, text, className, delimiter = ' ' }: ListCardProps) {
     const listEntry = text.split(delimiter).filter(entry => entry !== '').map((entry, index) => (
         <li key={index} className='' style={{ fontSize: "clamp(.5rem, 1rem, 1.25rem)" }}>{entry}</li>
     ))

@@ -16,7 +16,7 @@ interface StageLayoutCardContent {
 }
 
 interface StageCardContent {
-    projectName: string,
+    name: string,
     date: string,
     content: StageLayoutCardContent,
 }
@@ -34,29 +34,29 @@ const cardContent: { projects: StageCardContent[] } = {
                 },
                 summary: {
                     title: "Project Summary",
-                    text: "*02-24-2025*Web Development*Portfolio Site"
+                    text: "*02-24-2025*Web Development*Portfolio Site",
                 },
                 description: {
                     title: "Description",
-                    text: "This is a modern web app built to showcase a portfolio."
+                    text: "This is a modern web app built to showcase a portfolio.",
                 },
                 stack: {
                     title: "Tech Stack",
-                    text: "*React*Next.js*TypeScript*Tailwind*CSS"
-                }
+                    text: "*React*Next.js*TypeScript*Tailwind*CSS",
+                },
             }
         },
         {
-            projectName: "My Second Project",
+            name: "My Second Project",
             date: "2025-02-23",
             content: {
                 image: {
                     title: "Project Image",
-                    path: "/demo.webp"
+                    path: "/demo.webp",
                 },
                 summary: {
                     title: "Project Summary",
-                    text: "This project is designed for rapid content delivery and great user experience."
+                    text: "This project is designed for rapid content delivery and great user experience.",
                 },
                 description: {
                     title: "Description",

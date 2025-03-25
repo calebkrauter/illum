@@ -3,7 +3,7 @@ import { useState } from 'react';
 import DescriptionCard from './text_card';
 import StageLayout from './stage_layout';
 
-interface card_props {
+interface CardProps {
     title: string
     thumbnail?: string,
     width?: number,
@@ -16,7 +16,7 @@ interface card_props {
 // TODO Make card clickable and transform as a modal.
 
 
-const stage_card: React.FC<card_props> = ({ title, thumbnail, width = 60, height = 60, className = "p-5" }) => {
+function StageCard({ title, thumbnail, width = 60, height = 60, className = "p-5" }: CardProps) {
     const [isOpen, setIsOpen] = useState(false)
 
     const handleClick = () => {
@@ -65,4 +65,4 @@ const stage_card: React.FC<card_props> = ({ title, thumbnail, width = 60, height
     )
 }
 
-export default stage_card
+export default StageCard

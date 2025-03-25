@@ -20,7 +20,7 @@ interface StageLayoutProps {
 
 }
 
-const StageLayout: React.FC<StageLayoutProps> = ({
+function StageLayout({
     isOpen,
     onClose,
     children,
@@ -35,17 +35,9 @@ const StageLayout: React.FC<StageLayoutProps> = ({
     ${isOpen ? 'rounded-xl' : 'rounded-l'}`,
     setIsOpen,
     classNameInner = `overflow-auto transition-all duration-150 bg-gray-700 rounded 
-    ${isOpen ? 'bg-opacity-100 opacity-100' : 'opacity-0 bg-opacity-0 border-transparent text-transparent'}`
-}) => {
-    let descriptionOpacity0: string
-    let descriptionOpacity100: string
-    descriptionOpacity100 = 'bg-opacity-100'
-    descriptionOpacity0 = 'bg-opacity-0 border-transparent text-transparent'
-    // const globalCardContent = useConfiguredGlobalCardContent()
+    ${isOpen ? 'bg-opacity-100 opacity-100' : 'opacity-0 bg-opacity-0 border-transparent text-transparent'}`,
+}: StageLayoutProps) {
 
-    // console.log(globalCardContent); // Check the structure here
-    // TODO Add the other 3 card components. Upon setting up each of the four components, consolidate them to the layout component.
-    // Ideally, the layout component will have props where you can pass in the four components that you want in it as props.
     return (
         <OutsideClickHandler onOutsideClick={() => {
             setIsOpen(false)
