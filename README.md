@@ -1,12 +1,5 @@
-## Title
 # Illum
-## Description
-### This is a portfolio webapp to display apps I've built.
-
-## Tech Stack
-- Next.js TypeScript
-- React
+#### A portfolio web app to display software that I've built.
 
 ## Dependencies
-- Tailwind
-- React 19.0
+Node

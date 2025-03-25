@@ -29,7 +29,7 @@ export default function Home() {
         </a>
         <a href='https://www.linkedin.com/in/calebkrauter/' target='_blank' rel='noopener noreferrer' className='pl-6'>
           <button className='bg-gray-800 text-white py-2 px-2 rounded-full hover:bg-red-900' >
-            <Image src='/In-White-26.png' alt='icon' width={24} height={24}></Image>
+            <Image src='/ln-white-26.png' alt='icon' width={24} height={24}></Image>
           </button>
         </a>
       </nav>
