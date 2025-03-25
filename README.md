@@ -1,2 +1,5 @@
-# illum
- A Next.js portfolio site.
+# Illum
+#### A portfolio web app to display software that I've built.
+
+## Dependencies
+Node
