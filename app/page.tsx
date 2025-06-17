@@ -1,84 +1,172 @@
 'use client'
 import Image from 'next/image';
-import StageCard from './components/stage-card';
-import React, { useState } from 'react';
-import { Button } from 'rsuite';
-import { Timeline } from 'rsuite';
+import React, { RefObject, useRef } from 'react';
 import 'rsuite/dist/rsuite-no-reset.min.css';
-import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
-import TimelineItem from 'rsuite/esm/Timeline/TimelineItem';
+import { motion } from 'framer-motion';
+import { Link, Element } from 'react-scroll';
+import ProjectCard from './components/project-card';
 
-
-
+import useScrollSpy from 'react-use-scrollspy';
 export default function Home() {
-  const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const openModal = () => setIsModalOpen(true);
-  const closeModal = () => setIsModalOpen(false);
+const sectionRefs = [
+  useRef<HTMLElement>(null),
+  useRef<HTMLElement>(null),
+  useRef<HTMLElement>(null),
+] as React.RefObject<HTMLElement>[];
+
+
+  const activeSection = useScrollSpy({
+    sectionElementRefs: sectionRefs,
+    offsetPx: -120,
+  });
   return (
-    <div className='grid place-items-center pt-10'>
-      <nav className='bg-gray-800 w-[90vw] mx-auto p-4 flex justify-center items-center'>
-        <h1 className=' text-5xl font-bold text-white'>
-          CALEB KRAUTER
-        </h1>
-        <a href='https://github.com/calebkrauter' target='_blank' rel='noopener noreferrer' className='pl-6'>
-          <button className='bg-gray-800 text-white py-2 px-2 rounded-full hover:bg-red-900' >
-            <Image src='/github-mark-white.png' alt='icon' width={24} height={24}></Image>
-          </button>
-        </a>
-        <a href='https://www.linkedin.com/in/calebkrauter/' target='_blank' rel='noopener noreferrer' className='pl-6'>
-          <button className='bg-gray-800 text-white py-2 px-2 rounded-full hover:bg-red-900' >
-            <Image src='/ln-white-26.png' alt='icon' width={24} height={24}></Image>
-          </button>
-        </a>
-      </nav>
-
-      <main className='pt-10 grid grid-cols-12 w-screen h-screen overflow-y-auto'>
-        <div className='group' style={{ display: 'contents' }}>
-          <div className="ml-12 col-start-2 w-1 h-[400px] bg-slate-100 relative">
-            <div className="w-8 h-8 bg-gray-400 rounded-full absolute -translate-x-1/2 -translate-y-1/2 top-1/2 group-hover:w-12 group-hover:h-12 transition-all duration-300 ease-in-out pointer-events-none flex items-center">
-              <p className='ml-16 whitespace-nowrap'>December 23</p>
-            </div>
-
-          </div>
-          <div className='col-start-4 col-span-6 h-[400px] flex justify-center'>
-
-            <StageCard title='Project 1' thumbnail='/demo.webp' width={100} height={100}></StageCard>
-
-          </div>
+    <div>
+      <div className='grid place-items-center pt-10n'>
+        <div className='ml-auto mr-[50px]'>
         </div>
-        <div className='group' style={{ display: 'contents' }}>
-          {/* I don't like hard coding the size values here. I want it to be dynamic so that the line changes with height of stage card and they both change with site size perhaps resolution and screen size. */}
-          <div className="ml-12 col-start-2 w-1 h-[400px] bg-slate-100 relative">
-            <div className="w-8 h-8 bg-gray-400 rounded-full absolute -translate-x-1/2 -translate-y-1/2 top-1/2 group-hover:w-12 group-hover:h-12 transition-all duration-300 ease-in-out pointer-events-none flex items-center">
-              <p className='ml-16 whitespace-nowrap'>December 23</p>
+
+
+
+
+        <main className='flex w-screen h-screen'>
+
+          <div className='fixed top-0 left-0 mt-[100px] w-1/3 h-screen ml-[100px]'>
+
+            <motion.div
+              initial={{ opacity: 0 }}
+              whileInView={{ opacity: 1 }}
+              viewport={{ once: true }}
+              transition={{ duration: .3 }}
+            >
+              <div className='relative group p-3'>
+
+                <h1 className='text-4xl xfont-bold text-gray-300'>
+                  CALEB KRAUTER
+                </h1>
+                <h2 className='mt-[15px] text-xl text-gray-400'>
+                  Software Developer
+                </h2>
+                <h3 className='mt-[15px] text-gray-500 w-[200px]'>
+                  An elegant text describing something cool that I do.
+                </h3>
+              </div>
+              <span className={activeSection === 0 ? "App-navigation-item App-navigation-item--active" : "App-navigation-item group"}>
+                <Link to={'about'} smooth={true} duration={300} offset={-50}>
+                  <div className='group ml-[15px] mt-[50px] text-center w-[100px]'>
+                    <h4 className={`leading-7 text-gray-400 group-hover:text-white ${activeSection === 0 ? 'text-white' : ''}`}>
+                      About
+                    </h4>
+                    <hr className={`border-t-1 my-1 opacity-40 w-[100px] ${activeSection === 0 ? 'border-white' : 'border-gray-400'}`} />
+                  </div>
+                </Link>
+              </span>
+
+              <span className={activeSection === 1 ? "App-navigation-item App-navigation-item--active" : "App-navigation-item group"}>
+                <Link to={'projects'} smooth={true} duration={300} offset={-50}>
+                  <div className='group ml-[15px] mt-[15px] text-center w-[100px]'>
+                    <h4 className={`leading-7 text-gray-400 group-hover:text-white ${activeSection === 1 ? 'text-white' : ''}`}>
+                      Projects
+                    </h4>
+                    <hr className={`border-t-1 my-1 opacity-40 w-[100px] ${activeSection === 1 ? 'border-white' : 'border-gray-400'}`} />
+                  </div>
+                </Link>
+              </span>
+              <span className={activeSection === 2 ? "App-navigation-item App-navigation-item--active" : "App-navigation-item group"}>
+                <Link to={'experience'} smooth={true} duration={300} offset={-50}>
+                  <div className='group ml-[15px] mt-[15px] text-center w-[100px]'>
+                    <h4 className={`leading-7 text-gray-400 group-hover:text-white ${activeSection === 2 ? 'text-white' : ''}`}>
+                      Experience
+                    </h4>
+                    <hr className={`border-t-1 my-1 opacity-40 w-[100px] ${activeSection === 2 ? 'border-white' : 'border-gray-400'}`} />
+                  </div>
+                </Link>
+              </span>
+              <div className='fixed bottom-10'>
+                <a href='https://github.com/calebkrauter' target='_blank' rel='noopener noreferrer' className='pl-6'>
+                  <button className='opacity-35 hover:opacity-50' >
+                    <Image src='/github-mark-white.png' alt='icon' width={24} height={24}></Image>
+                  </button>
+                </a>
+                <a href='https://www.linkedin.com/in/calebkrauter/' target='_blank' rel='noopener noreferrer' className='pl-6'>
+                  <button className='opacity-35 hover:opacity-50' >
+                    <Image src='/ln-white-26.png' alt='icon' width={24} height={24}></Image>
+                  </button>
+                </a>
+              </div>
+            </motion.div>
+
+          </div>
+
+
+
+          <motion.div className='absolute top-0 right-0 mt-[100px] pl-[50px] w-2/3'
+            initial={{ x: '100%' }}
+            whileInView={{ x: 0 }}
+            viewport={{ once: true }}
+            transition={{ type: 'spring', stiffness: 250, damping: 20 }}
+          >
+            <div className='mr-[100px]'>
+              <section className="App-section" ref={sectionRefs[0]}>
+
+
+                <Element name={'about'} >
+
+                  <div className='group flex'>
+
+                    <h4 className='ml-[15px] leading-7 text-white'>
+
+                      I’m a developer with experience in software engineering, cloud deployment, and game development. I enjoy tackling complex problems through collaboration and hands-on experimentation, whether it’s optimizing a backend service, designing a game system, or deploying full-stack applications in the cloud. <br /> <br />
+
+                      I recently earned my BS in Computer Science and Systems from the University of Washington, Tacoma. My work includes developing REST APIs, managing cloud-hosted MySQL databases, and building interactive web experiences with Vue.js and Node.js. I’ve also deployed applications using Docker and AWS services like ECS and RDS. <br /> <br />
+
+                    </h4>
+                  </div>
+                </Element>
+              </section>
+              <section className="App-section" ref={sectionRefs[1]}>
+
+                <Element className='mt-[50px]' name='projects'>
+                  <h4 className={`text-[20px] ${activeSection === 1 ? 'text-gray-200' : 'text-gray-400'}`}>
+                    Projects
+                  </h4>
+                  <hr className={`mt-[15px] ${activeSection === 1 ? 'border-gray-200' : 'border-gray-400'} `}></hr>
+                </Element>
+              </section>
+
+
+              <ProjectCard />
+              <ProjectCard />
+              <ProjectCard />
+              <ProjectCard />
+              <ProjectCard />
+              <ProjectCard />
+              <ProjectCard />
+              <section className="App-section" ref={sectionRefs[2]}>
+
+                <Element className='mt-[50px]' name='experience'>
+                  <h4 className={`text-[20px] ${activeSection === 2 ? 'text-gray-200' : 'text-gray-400'}`}>
+                    Experience
+                  </h4>
+                  <hr className={`mt-[15px] ${activeSection === 2 ? 'border-gray-200' : 'border-gray-400'} `}></hr>
+                </Element>
+              </section>
+
+              <ProjectCard />
+              <ProjectCard />
+              <ProjectCard />
+
+              <div className='mt-[150px]'>
+
+              </div>
             </div>
+          </motion.div>
+        </main >
 
-          </div>
-          <div className='col-start-4 col-span-6 h-[400px] flex justify-center'>
 
-            <StageCard title='Project 1' thumbnail='/demo.webp' width={90} height={80}></StageCard>
+      </div >
 
-          </div>
-        </div>
-        <div className='group' style={{ display: 'contents' }}>
-          {/* I don't like hard coding the size values here. I want it to be dynamic so that the line changes with height of stage card and they both change with site size perhaps resolution and screen size. */}
-          <div className="ml-12 col-start-2 w-1 h-[400px] bg-slate-100 relative">
-            <div className="w-8 h-8 bg-gray-400 rounded-full absolute -translate-x-1/2 -translate-y-1/2 top-1/2 group-hover:w-12 group-hover:h-12 transition-all duration-300 ease-in-out pointer-events-none flex items-center">
-              <p className='ml-16 whitespace-nowrap'>December 23</p>
-            </div>
-
-          </div>
-          <div className='col-start-4 col-span-6 h-[400px] flex justify-center'>
-
-            <StageCard title='Project 1' thumbnail='/demo.webp' width={100} height={100}></StageCard>
-
-          </div>
-        </div>
-      </main >
-
-      <footer className='pt-10'></footer>
 
     </div >
   );
