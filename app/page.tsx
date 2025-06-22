@@ -8,6 +8,7 @@ import { Link, Element } from 'react-scroll'
 import ProjectCard from './components/project-card'
 import { useEffect, useState } from 'react'
 import useScrollSpy from 'react-use-scrollspy'
+import ConnectButtons from "./components/connect-buttons"
 export default function Home() {
   const [ hasScrolled, setHasScrolled ] = useState(false)
   const { scrollY } = useScroll()
@@ -26,19 +27,25 @@ export default function Home() {
 
   useEffect(() => {
     const unsubscribe = scrollY.on('change', (y) => {
-      setHasScrolled(y > 0)
+      setHasScrolled(y > 50)
     })
     return () => unsubscribe()
   }, [scrollY])
   return (
     <div>
-        <nav className={`fixed left-0 top-0 bg-gray-800 w-full h-[50px] bg-white/10 backdrop-blur-sm transition-opacity duration-400 z-50
-        ${hasScrolled ? 'opacity-80' : 'opacity-30'}`}>
-          
+        <nav className={`fixed left-0 top-0 bg-gray-800 w-full h-[50px] bg-white/10 backdrop-blur-sm transition-opacity duration-400 z-50 opacity-90 rounded-b-lg`}>
+
+          <h1 className='flex text-2xl xfont-bold text-gray-300 ml-[75px] h-full items-center z-50'>
+            CALEB KRAUTER
+          </h1>
+
+          <div className='fixed right-0 top-0 h-[50px] mr-[75px]'>
+            <ConnectButtons/>
+          </div>
         </nav>
       <div>
-        <main>
-          <div className='sm:fixed sm:top-0 sm:left-0 mt-[100px] sm:w-[400px] w-full sm:h-screen h-[300px] ml-[100px]'>
+        <main className="flex justify-center overflow-hidden">
+          {/* <div className='sm:fixed sm:top-0 sm:left-0 mt-[100px] sm:w-[400px] w-full sm:h-screen h-[300px] ml-[100px]'>
 
             <motion.div
               initial={{ opacity: 0 }}
@@ -47,9 +54,7 @@ export default function Home() {
               transition={{ duration: .3 }}
             >
               <div>
-                <h1 className='text-4xl xfont-bold text-gray-300'>
-                  CALEB KRAUTER
-                </h1>
+
                 <h2 className='mt-[15px] text-xl text-gray-400'>
                   Software Developer
                 </h2>
@@ -59,7 +64,7 @@ export default function Home() {
               </div>
               <span className={activeSection === 0 ? "App-navigation-item App-navigation-item--active" : "App-navigation-item group"}>
                 <Link to={'about'} smooth={true} duration={300} offset={-50}>
-                  <div className='group ml-[15px] mt-[50px] text-center w-[100px]'>
+                  <div className='group mt-[50px] text-center w-[100px]'>
                     <h4 className={`leading-7 text-gray-400 group-hover:text-white ${activeSection === 0 ? 'text-white' : ''}`}>
                       About
                     </h4>
@@ -70,7 +75,7 @@ export default function Home() {
 
               <span className={activeSection === 1 ? "App-navigation-item App-navigation-item--active" : "App-navigation-item group"}>
                 <Link to={'projects'} smooth={true} duration={300} offset={-50}>
-                  <div className='group ml-[15px] mt-[15px] text-center w-[100px]'>
+                  <div className='group mt-[15px] text-center w-[100px]'>
                     <h4 className={`leading-7 text-gray-400 group-hover:text-white ${activeSection === 1 ? 'text-white' : ''}`}>
                       Projects
                     </h4>
@@ -80,7 +85,7 @@ export default function Home() {
               </span>
               <span className={activeSection === 2 ? "App-navigation-item App-navigation-item--active" : "App-navigation-item group"}>
                 <Link to={'experience'} smooth={true} duration={300} offset={-50}>
-                  <div className='group ml-[15px] mt-[15px] text-center w-[100px]'>
+                  <div className='group mt-[15px] text-center w-[100px]'>
                     <h4 className={`leading-7 text-gray-400 group-hover:text-white ${activeSection === 2 ? 'text-white' : ''}`}>
                       Experience
                     </h4>
@@ -90,31 +95,40 @@ export default function Home() {
               </span>
             </motion.div>
 
-          </div>
+          </div> */}
 
 
 
-          <motion.div className='sm:absolute sm:top-0 sm:right-0 mt-[100px] pl-[50px] max-w-[65%] min-w-[500px]'
+          <motion.div className='items-center sm:top-0 sm:right-0 mt-[100px] px-[50px] max-w-[65%] min-w-[500px]'
             initial={{ x: '100%' }}
             whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ type: 'spring', stiffness: 250, damping: 20 }}
           >
-            <div className='mr-[100px] overflow-hidden'>
+            <div className='overflow-hidden'>
               <section className="App-section" ref={sectionRefs[0]}>
 
 
                 <Element name={'about'} >
 
-                  <div className='group flex'>
+                  <div className='group flex flex-col mt-[50px] mx-auto'>
+                    <div className='flex xl:flex-row flex-col gap-[50px] md:items-center'>
+                      <div>
+                        <h4 className='leading-7 text-white'>
+                          My name is Caleb. I'm a Software Developer and part-time barista.{<br/>}{<br/>}
+                          When I'm not at home writing code or at work making coffee, you can often find me spending time with family and friends building relationships where it matters most.
 
-                    <h4 className='ml-[15px] leading-7 text-white'>
+                          I am a Software Developer with professional IT Help Desk experience. Soon after graduating I was given an opportunity at an internship where I now develop dynamic React Components with a great team and a solid mission. 
+                          I've contributed to several projects using JS, TS, React, Java, C, Python, Erlang among other technologies. 
 
-                      I’m a developer with experience in software engineering, cloud deployment, and game development. I enjoy tackling complex problems through collaboration and hands-on experimentation, whether it’s optimizing a backend service, designing a game system, or deploying full-stack applications in the cloud. <br /> <br />
+                          I am grateful to the friends who supported me in my college journey and who still support me today.
+                        </h4>
+                      </div>
+                    <div className='relative h-[400px] w-[400px] overflow-hidden rounded-md flex-shrink-0'>
+                      <Image src={'/1.png'} width={400} height={400} alt={'Image of Caleb Krauter'} className='translate-y-[-100px]'></Image>
+                    </div>
+                  </div>
 
-                      I recently earned my BS in Computer Science and Systems from the University of Washington, Tacoma. My work includes developing REST APIs, managing cloud-hosted MySQL databases, and building interactive web experiences with Vue.js and Node.js. I’ve also deployed applications using Docker and AWS services like ECS and RDS. <br /> <br />
-
-                    </h4>
                   </div>
                 </Element>
               </section>
@@ -159,21 +173,9 @@ export default function Home() {
 
 
       </div >
-
-<footer className='fixed left-0 bottom-0 bg-gray-800 w-full h-[50px] bg-white/10 backdrop-blur-sm'>
-                <div className="flex items-center h-full ml-[100px]">
-                  <a href='https://github.com/calebkrauter' target='_blank' rel='noopener noreferrer' className='mr-4'>
-                  <button className='opacity-35 hover:opacity-50' >
-                    <Image src='/github-mark-white.png' alt='icon' width={24} height={24}></Image>
-                  </button>
-                </a>
-                <a href='https://www.linkedin.com/in/calebkrauter/' target='_blank' rel='noopener noreferrer' className='mr-4'>
-                  <button className='opacity-35 hover:opacity-50' >
-                    <Image src='/ln-white-26.png' alt='icon' width={24} height={24}></Image>
-                  </button>
-                </a>
-                </div>
-              </footer>
+        <footer className='sm:fixed relative left-0 bottom-0 mb-[50px]'>
+          <ConnectButtons/>
+        </footer>
     </div >
   );
 }
