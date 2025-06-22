@@ -6,7 +6,7 @@ function ProjectCard() {
     return (
         <a href='https://www.linkedin.com/in/calebkrauter/' target='_blank' rel='noopener noreferrer' className='pl-6'>
             <motion.div
-                className='group mt-[25px] w-full h-full hover:bg-white/5 rounded-lg flex hover:shadow-[0px_0px_3px_.5px_rgba(255,255,255,.1)]'
+                className='group mt-[25px] w-full h-full rounded-lg flex bg-gray-800 hover:bg-white/10 bg-opacity-20'
                 initial={{ x: '100%' }}
                 whileInView={{ x: 0 }}
                 viewport={{ once: true }}
@@ -34,17 +34,17 @@ function ProjectCard() {
                     <h4 className='group-hover:text-white leading-6 text-sm text-gray-400 font-semibold'>
                         A site to display my epic projects.
                     </h4>
-                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75 transition-transform duration-300 hover:translate-y-[-2px]' color='violet'>
                         <h4 className='text-sm text-gray-300 font-semibold'>
                             Next.js
                         </h4>
                     </Tag>
-                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75 transition-transform duration-300 hover:translate-y-[-2px]' color='violet'>
                         <h4 className='text-sm text-gray-300 font-semibold'>
                             Typescript
                         </h4>
                     </Tag>
-                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75' color='violet'>
+                    <Tag className='group-hover:opacity-100 mt-[15px] opacity-75 transition-transform duration-300 hover:translate-y-[-2px]' color='violet'>
                         <h4 className='text-sm text-gray-300 font-semibold'>
                             TailWind
                         </h4>

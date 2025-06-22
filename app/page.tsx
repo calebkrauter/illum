@@ -1,38 +1,44 @@
 'use client'
 import Image from 'next/image';
-import React, { RefObject, useRef } from 'react';
-import 'rsuite/dist/rsuite-no-reset.min.css';
-import 'react-vertical-timeline-component/style.min.css';
-import { motion } from 'framer-motion';
-import { Link, Element } from 'react-scroll';
-import ProjectCard from './components/project-card';
-
-import useScrollSpy from 'react-use-scrollspy';
+import React, { RefObject, useRef } from 'react'
+import 'rsuite/dist/rsuite-no-reset.min.css'
+import 'react-vertical-timeline-component/style.min.css'
+import { motion, useScroll } from 'framer-motion'
+import { Link, Element } from 'react-scroll'
+import ProjectCard from './components/project-card'
+import { useEffect, useState } from 'react'
+import useScrollSpy from 'react-use-scrollspy'
 export default function Home() {
-
-const sectionRefs = [
-  useRef<HTMLElement>(null),
-  useRef<HTMLElement>(null),
-  useRef<HTMLElement>(null),
-] as React.RefObject<HTMLElement>[];
+  const [ hasScrolled, setHasScrolled ] = useState(false)
+  const { scrollY } = useScroll()
+  const sectionRefs = [
+    useRef<HTMLElement>(null),
+    useRef<HTMLElement>(null),
+    useRef<HTMLElement>(null),
+  ] as React.RefObject<HTMLElement>[];
 
 
   const activeSection = useScrollSpy({
     sectionElementRefs: sectionRefs,
     offsetPx: -120,
-  });
+  })
+
+
+  useEffect(() => {
+    const unsubscribe = scrollY.on('change', (y) => {
+      setHasScrolled(y > 0)
+    })
+    return () => unsubscribe()
+  }, [scrollY])
   return (
     <div>
-      <div className='grid place-items-center pt-10n'>
-        <div className='ml-auto mr-[50px]'>
-        </div>
-
-
-
-
-        <main className='flex w-screen h-screen'>
-
-          <div className='fixed top-0 left-0 mt-[100px] w-1/3 h-screen ml-[100px]'>
+        <nav className={`fixed left-0 top-0 bg-gray-800 w-full h-[50px] bg-white/10 backdrop-blur-sm transition-opacity duration-400 z-50
+        ${hasScrolled ? 'opacity-80' : 'opacity-30'}`}>
+          
+        </nav>
+      <div>
+        <main>
+          <div className='sm:fixed sm:top-0 sm:left-0 mt-[100px] sm:w-[400px] w-full sm:h-screen h-[300px] ml-[100px]'>
 
             <motion.div
               initial={{ opacity: 0 }}
@@ -40,8 +46,7 @@ const sectionRefs = [
               viewport={{ once: true }}
               transition={{ duration: .3 }}
             >
-              <div className='relative group p-3'>
-
+              <div>
                 <h1 className='text-4xl xfont-bold text-gray-300'>
                   CALEB KRAUTER
                 </h1>
@@ -83,31 +88,19 @@ const sectionRefs = [
                   </div>
                 </Link>
               </span>
-              <div className='fixed bottom-10'>
-                <a href='https://github.com/calebkrauter' target='_blank' rel='noopener noreferrer' className='pl-6'>
-                  <button className='opacity-35 hover:opacity-50' >
-                    <Image src='/github-mark-white.png' alt='icon' width={24} height={24}></Image>
-                  </button>
-                </a>
-                <a href='https://www.linkedin.com/in/calebkrauter/' target='_blank' rel='noopener noreferrer' className='pl-6'>
-                  <button className='opacity-35 hover:opacity-50' >
-                    <Image src='/ln-white-26.png' alt='icon' width={24} height={24}></Image>
-                  </button>
-                </a>
-              </div>
             </motion.div>
 
           </div>
 
 
 
-          <motion.div className='absolute top-0 right-0 mt-[100px] pl-[50px] w-2/3'
+          <motion.div className='sm:absolute sm:top-0 sm:right-0 mt-[100px] pl-[50px] max-w-[65%] min-w-[500px]'
             initial={{ x: '100%' }}
             whileInView={{ x: 0 }}
             viewport={{ once: true }}
             transition={{ type: 'spring', stiffness: 250, damping: 20 }}
           >
-            <div className='mr-[100px]'>
+            <div className='mr-[100px] overflow-hidden'>
               <section className="App-section" ref={sectionRefs[0]}>
 
 
@@ -167,7 +160,20 @@ const sectionRefs = [
 
       </div >
 
-
+<footer className='fixed left-0 bottom-0 bg-gray-800 w-full h-[50px] bg-white/10 backdrop-blur-sm'>
+                <div className="flex items-center h-full ml-[100px]">
+                  <a href='https://github.com/calebkrauter' target='_blank' rel='noopener noreferrer' className='mr-4'>
+                  <button className='opacity-35 hover:opacity-50' >
+                    <Image src='/github-mark-white.png' alt='icon' width={24} height={24}></Image>
+                  </button>
+                </a>
+                <a href='https://www.linkedin.com/in/calebkrauter/' target='_blank' rel='noopener noreferrer' className='mr-4'>
+                  <button className='opacity-35 hover:opacity-50' >
+                    <Image src='/ln-white-26.png' alt='icon' width={24} height={24}></Image>
+                  </button>
+                </a>
+                </div>
+              </footer>
     </div >
   );
 }
