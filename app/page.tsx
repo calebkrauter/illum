@@ -38,8 +38,8 @@ export default function Home() {
   return (
     <div>
       <nav
-        className={`fixed left-0 top-0 bg-gray-800 w-full h-[50px] bg-white/10 backdrop-blur-sm duration-400 z-50 opacity-90 rounded-b-lg duration-500 ease-in-out ${
-          loaded ? "opacity-100" : "opacity-0"
+        className={`fixed left-0 top-0 bg-gray-800 w-full h-[50px] bg-white/10 backdrop-blur-sm transition-opacity z-50 rounded-b-lg duration-500 ease-in-out ${
+          loaded ? "opacity-90" : "opacity-0"
         }`}>
         <div className="flex flex-row h-full">
           <div className="sm:ml-[75px]vblock sm:hidden">
@@ -149,7 +149,7 @@ export default function Home() {
                     <div className="flex xl:flex-row flex-col gap-[50px] md:items-center">
                       <div>
                         <h4
-                          className={`leading-7 text-white duration-500 ease-in-out ${
+                          className={`leading-7 text-white transition-opacity duration-500 ease-in-out ${
                             loaded ? "opacity-100" : "opacity-0"
                           }`}>
                           My name is Caleb. I'm a Software Developer and
@@ -178,7 +178,7 @@ export default function Home() {
                           width={400}
                           height={400}
                           alt={"Image of Caleb Krauter"}
-                          className={`translate-y-[-100px] duration-500 ease-in-out ${
+                          className={`translate-y-[-100px] transition-opacity duration-500 ease-in-out ${
                             loaded ? "opacity-100" : "opacity-0"
                           }`}></Image>
                       </div>
@@ -186,7 +186,7 @@ export default function Home() {
                   </div>
                   <section className="App-section" ref={sectionRefs[2]}>
                     <Element
-                      className={`mt-[50px] duration-500 ease-in-out ${
+                      className={`mt-[50px] transition-opacity duration-500 ease-in-out ${
                         loaded ? "opacity-100" : "opacity-0"
                       }`}
                       name="experience">
@@ -214,7 +214,7 @@ export default function Home() {
 
               <section className="App-section" ref={sectionRefs[1]}>
                 <Element
-                  className={`mt-[50px] duration-500 ease-in-out ${
+                  className={`mt-[50px] transition-opacity duration-500 ease-in-out ${
                     loaded ? "opacity-100" : "opacity-0"
                   }`}
                   name="projects">
@@ -243,7 +243,7 @@ export default function Home() {
         </main>
       </div>
       <footer
-        className={`sm:fixed relative left-0 bottom-0 mb-[50px] duration-500 ease-in-out ${
+        className={`sm:fixed relative left-0 bottom-0 mb-[50px] transition-opacity duration-500 ease-in-out ${
           loaded ? "opacity-100" : "opacity-0"
         }`}>
         <ConnectButtons />
