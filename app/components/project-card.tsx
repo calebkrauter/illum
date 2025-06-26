@@ -9,12 +9,13 @@ function ProjectCard() {
       target="_blank"
       rel="noopener noreferrer"
       className="pl-6">
-      <motion.div
+      {/* <motion.div
         className="group mt-[25px] w-full h-full rounded-lg flex bg-gray-800 hover:bg-white/10 bg-opacity-20"
         initial={{ x: "100%" }}
         whileInView={{ x: 0 }}
         viewport={{ once: true }}
-        transition={{ type: "spring", stiffness: 200, damping: 20 }}>
+        transition={{ type: "spring", stiffness: 200, damping: 20 }}> */}
+      <div className="group mt-[25px] w-full h-full rounded-lg flex bg-gray-800 hover:bg-white/10 bg-opacity-20">
         <div>
           <div className="flex sm:flex-row flex-col">
             <div className="m-[15px] ">
@@ -66,7 +67,8 @@ function ProjectCard() {
             </div>
           </div>
         </div>
-      </motion.div>
+        {/* </motion.div> */}
+      </div>
     </a>
   );
 }
