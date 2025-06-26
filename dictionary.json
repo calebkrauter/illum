@@ -1,0 +1,54 @@
+{
+  "experience": [
+    {
+      "Date": "04 / 2025 to current",
+      "Title": "Software Developer Intern (Remote)",
+      "Company": "at Global Radio Outreach",
+      "Description": "Develops dynamic and responsive frontend components in React and Tailwind for an international multilingual website. Design is guided by Figma mockups and feedback from a design team and project manager.",
+      "TechStack": ["TypeScript", "React.js", "Tailwind"]
+    },
+    {
+      "Date": "03 / 2024 to 12 / 2024",
+      "Title": "Grader/TA (Remote)",
+      "Company": "at University of Washington, Tacoma",
+      "Description": "Graded the work of 150+ students over three academic quarters for the Software Development and Quality Assurance Techniques course. Graded and provided feedback on Java programming practices, course project, and progress updates. --- Graded the work of 20+ students in the Programming Practicum course. (09/2024-12/2024) Graded and provided feedback on weekly Java programming projects focusing on Object Oriented programming, inheritance, and integration of unit testing."
+    },
+    {
+      "Date": "09 / 2021 to 05 / 2022",
+      "Title": "IT Student Help Desk Employee (Remote)",
+      "Company": "at Green River College, Auburn",
+      "Description": "Resolved students’ technology issues and escalated unresolved issues. Troubleshot and resolved issues regarding accounts, email lookup, password reset, and CTCLink. Wrote documentation on a troubleshooting process for Mac."
+    }
+  ],
+  "project": [
+    {
+      "Date": "Summer 2024",
+      "Title": "Web Developer (Team Project)",
+      "ProjectName": "KeyClash",
+      "Description": "Typing game with leaderboard hosted on AWS. Brainstormed, designed, and developed frontend development and REST API development Deployed Docker images for frontend and backend on AWS ECS Set up a Relational MySQL database on AWS RDS and integrated Route 53 for domain hosting.",
+      "TechStack": [
+        "JavaScript",
+        "Vue.js",
+        "Node.js",
+        "MySQL",
+        "Pinia",
+        "Docker",
+        "AWS (ECR, ECS, RDS)"
+      ]
+    },
+    {
+      "Date": "Winter 2024",
+      "Title": "Web Game Developer (Team Project)",
+      "ProjectName": "The Good The Bad and Chad",
+      "Description": "RPG Platformer Single-Player Web Game. Developed movement, tile-map level creation system, and weather system. Ideated, developed design documentation, participated in progress reports Designed dialog algorithm, sprite art, and music. Created a walk-through video to aid the team on creating and integrating tile maps.",
+      "TechStack": ["JavaScript"]
+    },
+    {
+      "Date": "Spring 2023",
+      "Title": "Java Game Developer (Team Project)",
+      "ProjectName": "Lost Pillars of OOP",
+      "Description": "Top-Down Dungeon Adventure Maze Game. Developed and implemented a mutually recursive maze generation algorithm, menu UI, and SQL queries for a SQLite database. Collaborated in ideation, and design documentation",
+      "TechStack": ["Java", "SQLite", "Swing"]
+    }
+  ]
+}

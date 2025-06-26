@@ -4,18 +4,20 @@ import React, { RefObject, useRef } from "react";
 import "rsuite/dist/rsuite-no-reset.min.css";
 import "react-vertical-timeline-component/style.min.css";
 import { motion, useScroll } from "framer-motion";
-import { Link, Element } from "react-scroll";
+import { Link, Element, Button } from "react-scroll";
 import ProjectCard from "./components/project-card";
 import { useEffect, useState } from "react";
 import useScrollSpy from "react-use-scrollspy";
 import ConnectButtons from "./components/connect-buttons";
 import { Pivot as Hamburger } from "hamburger-react";
+import dictionary from "../dictionary.json";
 
 export default function Home() {
   const [hasScrolled, setHasScrolled] = useState(false);
   const { scrollY } = useScroll();
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const [loaded, setLoaded] = useState(false);
+  const [isVisible, setIsVisible] = useState(false);
 
   const sectionRefs = [
     useRef<HTMLElement>(null),
@@ -39,11 +41,13 @@ export default function Home() {
   return (
     <div>
       <nav
-        className={`fixed left-0 top-0 bg-gray-800 w-full h-[50px] bg-white/10 backdrop-blur-sm transition-opacity z-50 rounded-b-lg duration-500 ease-in-out ${
-          loaded ? "backdrop-opacity-60 text-opacity-100" : "opacity-0"
-        }`}>
+        className={`fixed left-0 top-0 w-full h-[50px] bg-white/10 backdrop-blur-sm transition-opacity z-50 duration-500 ease-in-out ${
+          loaded ? "backdrop-opacity-90 text-opacity-100" : "opacity-0"
+        } ${isMenuOpen ? "rounded-b-0" : "rounded-b-lg"}`}
+        style={{ backgroundColor: "rgba(45, 45, 45, 0.60)" }}>
         <div className="flex flex-row h-full">
-          <div className="sm:ml-[75px] block sm:hidden opacity-60">
+          <div
+            className={`md:ml-[75px] ease-in-out transition-opacity duration-500 md:opacity-0 opacity-60`}>
             <Hamburger toggled={isMenuOpen} toggle={setMenuOpen} />
           </div>
           <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 sm:translate-x-0 sm:left-auto sm:ml-[75px] items-center">
@@ -53,79 +57,99 @@ export default function Home() {
           </div>
           <div className="fixed right-0 top-0 h-[50px] sm:mr-[75px] mr-[15px]">
             <div className="flex flex-row gap-5 items-center h-full ml-[75px]">
-              <a
-                href="https://github.com/calebkrauter"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="">
-                <button className="opacity-60 sm:opacity-35 hover:opacity-60">
-                  <Image
-                    src="/github-mark-white.png"
-                    alt="icon"
-                    width={24}
-                    height={24}></Image>
-                </button>
-              </a>
-              <a
-                href="https://www.linkedin.com/in/calebkrauter/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="">
-                <button className="opacity-60 sm:opacity-35 hover:opacity-60">
-                  <Image
-                    src="/ln-white-26.png"
-                    alt="icon"
-                    width={24}
-                    height={24}></Image>
-                </button>
-              </a>
+              <ConnectButtons />
             </div>
           </div>
         </div>
       </nav>
-      <div>
-        {}
+
+      <div
+        className={`fixed inset-0 top-[50px] backdrop-opacity-90 backdrop-blur-sm bg-white/10 z-50 transition-all duration-300 ease-in-out ${
+          isMenuOpen ? "opacity-95 " : "opacity-0 pointer-events-none"
+        }`}
+        style={{ backgroundColor: "rgba(45, 45, 45, 0.60)" }}>
+        <nav className="flex flex-col justify-between">
+          <Button
+            onClick={() => {
+              setMenuOpen(false);
+            }}
+            to={"about"}
+            smooth={true}
+            duration={300}
+            offset={-50}
+            className="h-[15dvh] m-3 bg-white/10 bg-gray-400 bg-opacity-50 rounded-lg">
+            About
+          </Button>
+          <Button
+            onClick={() => {
+              setMenuOpen(false);
+            }}
+            to={"experience"}
+            smooth={true}
+            duration={300}
+            offset={-50}
+            className="h-[15dvh] m-3 bg-white/10 bg-gray-400 bg-opacity-50 rounded-lg">
+            Experience
+          </Button>
+          <Button
+            onClick={() => {
+              setMenuOpen(false);
+            }}
+            to={"projects"}
+            smooth={true}
+            duration={300}
+            offset={-50}
+            className="h-[15dvh] m-3 bg-white/10 bg-gray-400 bg-opacity-50 rounded-lg">
+            Projects
+          </Button>
+        </nav>
+      </div>
+
+      <div className="z-0">
         <main
           className={`flex justify-center overflow-hidden duration-500 ease-in-out ${
             loaded ? "opacity-90" : "opacity-0"
           }`}>
-          <div className="sm:fixed sm:top-0 sm:left-0 mt-[100px] sm:w-[400px] w-full sm:h-screen h-[300px] ml-[100px] hidden sm:block">
+          <div className="sm:fixed sm:top-0 sm:left-0 sm:w-[400px] sm:h-screen h-[300px] ml-[50px] hidden md:block">
             <div className="flex flex-col absolute top-1/2 -translate-y-1/2 ">
-              <Link to={"about"} smooth={true} duration={300} offset={-50}>
-                <div className="flex flex-col items-center mt-[5px] text-center w-[100px]">
+              <Button to={"about"} smooth={true} duration={300} offset={-50}>
+                <div className="flex flex-col items-center text-center w-[100px]">
                   <div
-                    className={`w-2 h-2 rounded-full leading-7 bg-gray-400 hover:bg-red-900  ${
+                    className={`w-2 opacity-85 h-2 rounded-full leading-7 bg-gray-400 hover:bg-white  ${
                       activeSection === 0
-                        ? "bg-red-900"
-                        : "bg-gray-400 hover:bg-red-900"
+                        ? "bg-white"
+                        : "bg-gray-400 hover:bg-white"
                     }`}></div>
-                  <div className="w-px h-10 bg-gray-400 mt-[5px]"></div>
+                  <div className="w-px h-[75px] bg-gray-400 my-[10px]"></div>
                 </div>
-              </Link>
-              <Link to={"experience"} smooth={true} duration={300} offset={-50}>
-                <div className="flex flex-col items-center mt-[5px] text-center w-[100px]">
+              </Button>
+              <Button
+                to={"experience"}
+                smooth={true}
+                duration={300}
+                offset={-50}>
+                <div className="flex flex-col items-center  text-center w-[100px]">
                   <div
-                    className={`w-2 h-2 rounded-full leading-7 bg-gray-400 hover:bg-red-900  ${
+                    className={`w-2 opacity-85 h-2 rounded-full leading-7 bg-gray-400 hover:bg-white  ${
                       activeSection === 1
-                        ? "bg-red-900"
-                        : "bg-gray-400 hover:bg-red-900"
+                        ? "bg-white"
+                        : "bg-gray-400 hover:bg-white"
                     }`}></div>
-                  <div className="w-px h-10 bg-gray-400 mt-[5px]"></div>
+                  <div className="w-px h-[75px] bg-gray-400 my-[10px]"></div>
                 </div>
-              </Link>
-              <Link to={"projects"} smooth={true} duration={300} offset={-50}>
-                <div className="flex flex-col items-center mt-[5px] text-center w-[100px]">
+              </Button>
+              <Button to={"projects"} smooth={true} duration={300} offset={-50}>
+                <div className="flex flex-col items-center text-center w-[100px]">
                   <div
-                    className={`w-2 h-2 rounded-full leading-7 bg-gray-400 hover:bg-red-900  ${
+                    className={`w-2 opacity-85 h-2 rounded-full leading-7 bg-gray-400 hover:bg-white  ${
                       activeSection === 2
-                        ? "bg-red-900"
-                        : "bg-gray-400 hover:bg-red-900"
+                        ? "bg-white"
+                        : "bg-gray-400 hover:bg-white"
                     }`}></div>
                 </div>
-              </Link>
+              </Button>
             </div>
           </div>
-
           <motion.div
             initial={{ x: "100%" }}
             whileInView={{ x: 0 }}
@@ -137,7 +161,7 @@ export default function Home() {
                 <section className="App-section" ref={sectionRefs[0]}>
                   <Element name={"about"}>
                     <div className="group flex flex-col mt-[50px] mx-auto">
-                      <div className="flex xl:flex-row flex-col gap-[50px] md:items-center">
+                      <div className="flex xl:flex-row flex-col gap-[50px] items-start">
                         <div>
                           <h4
                             className={`leading-7 text-white transition-opacity duration-500 ease-in-out ${
@@ -148,17 +172,15 @@ export default function Home() {
                             {<br />}
                             When I'm not at home writing code or at work making
                             coffee, you can often find me spending time with
-                            family and friends building relationships where it
-                            matters most. I am a Software Developer with
+                            family and friends building relationships that
+                            matter most. I am a Software Developer with
                             professional IT Help Desk experience. Soon after
                             graduating I was given an opportunity at an
                             internship where I now develop dynamic React
                             Components with a great team and a solid mission.
-                            I've contributed to several projects using JS, TS,
-                            React, Java, C, Python, Erlang among other
-                            technologies. I am grateful to the friends who
-                            supported me in my college journey and who still
-                            support me today.
+                            I've contributed to several projects using
+                            JavaScript, TypeScript, React, Java, C, Python,
+                            Erlang among other technologies.
                           </h4>
                         </div>
                         <div className="relative h-[400px] w-[400px] overflow-hidden rounded-md flex-shrink-0">
@@ -194,9 +216,18 @@ export default function Home() {
                     </section>
                   </Element>
                 </section>
-                <ProjectCard />
-                <ProjectCard />
-                <ProjectCard />
+                {dictionary.experience.map((experience, index) => (
+                  <ProjectCard
+                    key={index}
+                    title={experience.Title}
+                    date={experience.Date}
+                    description={experience.Description}
+                    tags={experience.TechStack}
+                    tagColors={["violet", "orange", "orange"]}
+                    company={experience.Company}
+                    includeLinkArrow={false}
+                  />
+                ))}
 
                 <section className="App-section" ref={sectionRefs[2]}>
                   <Element
@@ -212,10 +243,55 @@ export default function Home() {
                     </h4>
                   </Element>
                 </section>
-
-                <ProjectCard />
-                <ProjectCard />
-                <ProjectCard />
+                <ProjectCard
+                  title={dictionary.project[0].Title}
+                  date={dictionary.project[0].Date}
+                  description={dictionary.project[0].Description}
+                  tags={dictionary.project[0].TechStack}
+                  tagColors={[
+                    "violet",
+                    "orange",
+                    "red",
+                    "violet",
+                    "green",
+                    "green",
+                    "green",
+                  ]}
+                  company={dictionary.project[0].ProjectName}
+                  url="https://github.com/calebkrauter/keyclash-databases-project"
+                />
+                <ProjectCard
+                  title={dictionary.project[1].Title}
+                  date={dictionary.project[1].Date}
+                  description={dictionary.project[1].Description}
+                  tags={dictionary.project[1].TechStack}
+                  tagColors={[
+                    "violet",
+                    "violet",
+                    "violet",
+                    "yellow",
+                    "green",
+                    "green",
+                  ]}
+                  company={dictionary.project[1].ProjectName}
+                  url="https://caleb-krauter.itch.io/the-good-the-bad-and-chad"
+                />
+                <ProjectCard
+                  title={dictionary.project[2].Title}
+                  date={dictionary.project[2].Date}
+                  description={dictionary.project[2].Description}
+                  tags={dictionary.project[2].TechStack}
+                  tagColors={[
+                    "violet",
+                    "violet",
+                    "orange",
+                    "yellow",
+                    "green",
+                    "green",
+                  ]}
+                  company={dictionary.project[2].ProjectName}
+                  url="https://caleb-krauter.itch.io/lostpillarsofoop"
+                />
 
                 <div className="mt-[150px]"></div>
               </div>
@@ -224,7 +300,7 @@ export default function Home() {
         </main>
       </div>
       <footer
-        className={`sm:fixed relative left-0 bottom-0 mb-[50px] transition-opacity duration-500 ease-in-out ${
+        className={`md:fixed relative left-0 bottom-0 mb-[50px] transition-opacity duration-500 ease-in-out lg:ml-[75px] ml-[15px] ${
           loaded ? "opacity-100" : "opacity-0"
         }`}>
         <ConnectButtons />

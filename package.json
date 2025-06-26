@@ -9,7 +9,9 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "framer-motion": "^12.6.0",
+    "@heroui/button": "^2.2.22",
+    "@heroui/react": "^2.7.11",
+    "framer-motion": "^12.19.1",
     "hamburger-react": "^2.5.2",
     "next": "^15.1.7",
     "react": "^19.0.0",
@@ -17,7 +19,7 @@
     "react-scroll": "^1.9.3",
     "react-use-scrollspy": "^3.1.1",
     "react-vertical-timeline-component": "^3.5.3",
-    "rsuite": "^5.78.1"
+    "rsuite": "^5.83.0"
   },
   "devDependencies": {
     "@eslint/eslintrc": "^3",
