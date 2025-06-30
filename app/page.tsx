@@ -51,7 +51,7 @@ export default function Home() {
             <Hamburger toggled={isMenuOpen} toggle={setMenuOpen} />
           </div>
           <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 sm:translate-x-0 sm:left-auto sm:ml-[75px] items-center">
-            <h1 className="sm:text-2xl text-xl font-bold text-gray-300 z-50">
+            <h1 className="sm:text-2xl text-xl font-bold text-title-light z-50">
               CALEB KRAUTER
             </h1>
           </div>
@@ -207,8 +207,8 @@ export default function Home() {
                         <h4
                           className={`text-[20px] ${
                             activeSection === 1
-                              ? "text-gray-200"
-                              : "text-gray-400"
+                              ? "text-title-light"
+                              : "text-title-dark"
                           }`}>
                           Experience
                         </h4>
@@ -237,7 +237,9 @@ export default function Home() {
                     name="projects">
                     <h4
                       className={`text-[20px] ${
-                        activeSection === 2 ? "text-gray-200" : "text-gray-400"
+                        activeSection === 2
+                          ? "text-title-light"
+                          : "text-title-dark"
                       }`}>
                       Projects
                     </h4>

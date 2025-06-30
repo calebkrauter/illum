@@ -11,6 +11,16 @@ export default {
       colors: {
         background: "var(--background)",
         foreground: "var(--foreground)",
+        title: {
+          light: "var(--title-light)",
+          dark: "var(--title-dark)",
+          testred: "var(--testred)",
+        },
+        bg: {
+          light: "var(--title-light)",
+          dark: "var(--title-dark)",
+          testred: "var(--testred)",
+        },
       },
     },
   },

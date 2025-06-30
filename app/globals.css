@@ -3,14 +3,20 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: oklch(17.9% 0.00613 285.724);
+  --foreground: rgba(245, 245, 245, 1);
+  --title-light: oklch(92.8% 0.006 264.531);
+  --title-dark: oklch(70.7% 0.022 261.325);
+  --testred: rgba(240, 5, 5, 1);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --background: oklch(17.9% 0.00613 285.724);
+    --foreground: rgba(245, 245, 245, 1);
+    --title-light: oklch(92.8% 0.006 264.531);
+    --title-dark: oklch(70.7% 0.022 261.325);
+    --testred: rgba(240, 5, 5, 1);
   }
 }
 
