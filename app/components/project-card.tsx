@@ -1,4 +1,3 @@
-import { motion } from "framer-motion";
 import { Tag } from "rsuite";
 import Image from "next/image";
 import { TypeAttributes } from "rsuite/esm/internals/types";

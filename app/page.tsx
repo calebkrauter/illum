@@ -1,30 +1,24 @@
 "use client";
 import Image from "next/image";
-import React, { RefObject, useRef } from "react";
+import React, { useRef } from "react";
 import "rsuite/dist/rsuite-no-reset.min.css";
 import "react-vertical-timeline-component/style.min.css";
-import { motion, useMotionValue, useScroll } from "framer-motion";
-import { Link, Element, Button as NavButton } from "react-scroll";
+import { motion, useScroll } from "framer-motion";
+import { Element, Button as NavButton } from "react-scroll";
 import ProjectCard from "./components/project-card";
 import { useEffect, useState } from "react";
 import useScrollSpy from "react-use-scrollspy";
 import ConnectButtons from "./components/connect-buttons";
 import { Pivot as Hamburger } from "hamburger-react";
 import dictionary from "../dictionary.json";
-// import { Button } from "rsuite";
-import { Button } from "@heroui/button";
-import { select } from "framer-motion/client";
-const options = ["First", "Second", "Third"];
+import ThemeSwitcher from "./components/theme-switcher";
 
 export default function Home() {
-  const [hasScrolled, setHasScrolled] = useState(false);
   const { scrollY } = useScroll();
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
-  const [dark, light] = useState("dark");
+  const [isMobileSize, setIsMobileSize] = useState(false);
 
-  const [selected, setSelected] = useState(0);
   const sectionRefs = [
     useRef<HTMLElement>(null),
     useRef<HTMLElement>(null),
@@ -35,96 +29,23 @@ export default function Home() {
     sectionElementRefs: sectionRefs,
     offsetPx: -300,
   });
-  useEffect(() => {
-    const localStorageIndex = localStorage.getItem("themeIndex");
-    if (localStorageIndex) setSelected(parseInt(localStorageIndex));
-  }, []);
 
   useEffect(() => {
-    const unsubscribe = scrollY.on("change", (y) => {
-      setHasScrolled(y > 50);
-    });
-    const onRefocus = () => {
-      sizeUp();
-    };
-    if (
-      selected === 0 &&
-      window.matchMedia("(prefers-color-scheme: dark)").matches
-    ) {
-      document.body.classList.remove("light", "dark");
-      document.body.classList.add("dark");
-      storeThemeSelection(0);
-    } else if (
-      selected === 0 &&
-      window.matchMedia("(prefers-color-scheme: light)").matches
-    ) {
-      document.body.classList.remove("light", "dark");
-      document.body.classList.add("light");
-      storeThemeSelection(0);
-    }
-    if (selected === 1) {
-      document.body.classList.remove("light", "dark");
-      document.body.classList.add("dark");
-      storeThemeSelection(1);
-    } else if (selected === 2) {
-      document.body.classList.remove("light", "dark");
-      document.body.classList.add("light");
-      storeThemeSelection(2);
-    }
-    window.addEventListener("focus", onRefocus);
-    window.addEventListener("pointerdown", onRefocus);
-    window.addEventListener("scroll", onRefocus);
-    document.addEventListener("visibilitychange", () => {
-      if (document.visibilityState === "visible") onRefocus();
-    });
-    return () => {
-      window.removeEventListener("focus", onRefocus);
-      document.removeEventListener("visibilitychange", onRefocus);
-      window.removeEventListener("pointerdown", onRefocus);
-      window.removeEventListener("scroll", onRefocus);
-      unsubscribe();
-    };
-  }, [scrollY, selected]);
-  const [width, setWidth] = useState(50);
-  const [height, setHeight] = useState(20);
-
-  const storeThemeSelection = (index: number) => {
-    localStorage.setItem("themeIndex", index.toString());
-  };
-
-  const sizeUp = () => {
-    setWidth(50);
-    setHeight(40);
-  };
-
-  const sizeDown = () => {
-    setWidth(50);
-    setHeight(20);
-  };
-  const parentRef = useRef(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const handleClick = () => {
-    sizeDown();
-    if (!isDragging) {
-      if (selected >= 2) {
-        setSelected(0);
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMenuOpen(false);
+        setIsMobileSize(false);
       } else {
-        setSelected(selected + 1);
+        setIsMobileSize(true);
       }
-    }
-  };
+    };
 
-  const handleDrag = () => {
-    sizeDown();
-    setIsDragging(true);
-  };
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [scrollY, isMobileSize]);
 
-  const x = useMotionValue(0);
-  const themeSourceChoice = [
-    "/system.svg",
-    "/dark-mode.svg",
-    "/light-mode.svg",
-  ];
   return (
     <div>
       <nav
@@ -144,93 +65,7 @@ export default function Home() {
           </div>
           <div className="fixed right-0 top-0 h-[50px] sm:mr-[75px] mr-[15px]">
             <div className="flex flex-row gap-5 items-center h-full ml-[75px]">
-              <div ref={parentRef} className="flex flex-row relative">
-                <motion.div
-                  style={{ x }}
-                  animate={{
-                    x: selected * 50,
-                    width: width,
-                    height: height,
-                  }}
-                  onAnimationComplete={sizeUp}
-                  transition={{
-                    type: "spring",
-                    stiffness: 1000,
-                    damping: 30,
-                    bounce: 1,
-                  }}
-                  drag="x"
-                  dragConstraints={parentRef}
-                  dragTransition={{
-                    power: 0,
-                    timeConstant: 50,
-                    // Snap calculated target to nearest 50 pixels
-                    modifyTarget: (target) => Math.round(target / 50) * 50,
-                    min: 0,
-                    max: 100,
-                    bounceStiffness: 500,
-                  }}
-                  onDrag={handleDrag}
-                  onClick={handleClick}
-                  onDragEnd={() => {
-                    sizeUp();
-                    setIsDragging(false);
-                    setSelected(Math.round(x.get() / 50));
-                  }}
-                  whileTap={{ cursor: "grabbing" }}
-                  dragElastic={0.01}
-                  className={`flex absolute bottom-0 transform -translate-x-1/2 bg-subTitle-background rounded-lg z-50 `}>
-                  <motion.div
-                    key={themeSourceChoice[selected]}
-                    initial={{ opacity: 0, scale: 1, filter: "blur(5px)" }}
-                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
-                    exit={{ opacity: 0, scale: 0.5, filter: "blur(5px)" }}
-                    transition={{ duration: 0.2, ease: "easeInOut" }}
-                    className="relative mx-auto my-auto w-full h-full max-w-[24px] max-h-[24px]">
-                    <Image
-                      className="mx-auto pointer-events-none w-full h-full max-w-[24px] max-h-[24px]"
-                      src={themeSourceChoice[selected]}
-                      alt={"system theme icon"}
-                      width={24}
-                      height={24}></Image>
-                  </motion.div>
-                </motion.div>
-                <Button
-                  className="flex w-[50px] rounded-l-lg h-[40px] my-auto bg-red-300"
-                  onPress={() => {
-                    setSelected(0), sizeDown();
-                  }}>
-                  <Image
-                    src={"/system.svg"}
-                    alt={"system theme icon"}
-                    width={24}
-                    height={24}></Image>
-                </Button>
-                <Button
-                  className="flex w-[50px] rounded-none h-[40px] my-auto bg-red-300"
-                  onPress={() => {
-                    setSelected(1), sizeDown();
-                  }}>
-                  <Image
-                    src={"/dark-mode.svg"}
-                    alt={"system theme icon"}
-                    width={24}
-                    height={24}></Image>
-                </Button>
-
-                <Button
-                  className="flex w-[50px] rounded-r-lg h-[40px] my-auto bg-red-300"
-                  onPress={() => {
-                    setSelected(2), sizeDown();
-                  }}>
-                  <Image
-                    src={"/light-mode.svg"}
-                    alt={"system theme icon"}
-                    width={24}
-                    height={24}></Image>
-                </Button>
-              </div>
-
+              <ThemeSwitcher className=" ease-in-out transition-opacity duration-500 opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto" />
               <ConnectButtons />
             </div>
           </div>
@@ -240,7 +75,7 @@ export default function Home() {
       <div
         className={`fixed inset-0 top-[50px] backdrop-blur-sm z-50 transition-all duration-300 ease-in-out ${
           isMenuOpen ? "opacity-95 " : "opacity-0 pointer-events-none"
-        }`}
+        } block md:hidden`}
         style={{ backgroundColor: "rgba(45, 45, 45, 0.60)" }}>
         <nav className="flex flex-col justify-between">
           <NavButton
@@ -251,7 +86,9 @@ export default function Home() {
             smooth={true}
             duration={300}
             offset={-50}
-            className="h-[15dvh] m-3 bg-frost-button rounded-lg"></NavButton>
+            className="h-[15dvh] m-3 bg-frost-button rounded-lg text-3xl font-bold">
+            About
+          </NavButton>
           <NavButton
             onClick={() => {
               setMenuOpen(false);
@@ -260,7 +97,9 @@ export default function Home() {
             smooth={true}
             duration={300}
             offset={-50}
-            className="h-[15dvh] m-3 bg-frost-button rounded-lg"></NavButton>
+            className="h-[15dvh] m-3 bg-frost-button rounded-lg text-3xl font-bold">
+            Experience
+          </NavButton>
           <NavButton
             onClick={() => {
               setMenuOpen(false);
@@ -269,7 +108,14 @@ export default function Home() {
             smooth={true}
             duration={300}
             offset={-50}
-            className="h-[15dvh] m-3 bg-frost-button rounded-lg"></NavButton>
+            className="h-[15dvh] m-3 bg-frost-button rounded-lg text-3xl font-bold">
+            Projects
+          </NavButton>
+          <div className="flex h-[15dvh] m-3 bg-frost-button rounded-lg justify-center items-center">
+            <div style={{ transform: "scale(1.5)" }}>
+              <ThemeSwitcher className=" ease-in-out transition-opacity duration-500 md:opacity-0 opacity-100 md:pointer-events-none pointer-events-auto" />
+            </div>
+          </div>
         </nav>
       </div>
 
@@ -343,18 +189,18 @@ export default function Home() {
                             className={`leading-7 text-card-desc transition-opacity duration-500 ease-in-out ${
                               loaded ? "opacity-100" : "opacity-0"
                             }`}>
-                            My name is Caleb. I'm a Software Developer and
+                            My name is Caleb. I&apos;m a Software Developer and
                             part-time barista.{<br />}
                             {<br />}
-                            When I'm not at home writing code or at work making
-                            coffee, you can often find me spending time with
-                            family and friends building relationships that
+                            When I&apos;m not at home writing code or at work
+                            making coffee, you can often find me spending time
+                            with family and friends building relationships that
                             matter most. I am a Software Developer with
                             professional IT Help Desk experience. Soon after
                             graduating I was given an opportunity at an
                             internship where I now develop dynamic React
                             Components with a great team and a solid mission.
-                            I've contributed to several projects using
+                            I&apos;ve contributed to several projects using
                             JavaScript, TypeScript, React, Java, C, Python,
                             Erlang among other technologies.
                           </h4>
