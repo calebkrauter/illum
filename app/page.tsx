@@ -27,7 +27,7 @@ export default function Home() {
 
   const activeSection = useScrollSpy({
     sectionElementRefs: sectionRefs,
-    offsetPx: -120,
+    offsetPx: -300,
   });
 
   useEffect(() => {
@@ -38,10 +38,11 @@ export default function Home() {
   }, [scrollY]);
 
   console.log(activeSection);
+
   return (
     <div>
       <nav
-        className={`fixed left-0 top-0 w-full h-[50px] bg-white/10 backdrop-blur-sm transition-opacity z-50 duration-500 ease-in-out ${
+        className={`fixed left-0 top-0 w-full h-[50px] bg-interaction-active/10 backdrop-blur-sm transition-opacity z-50 duration-500 ease-in-out ${
           loaded ? "backdrop-opacity-90 text-opacity-100" : "opacity-0"
         } ${isMenuOpen ? "rounded-b-0" : "rounded-b-lg"}`}
         style={{ backgroundColor: "rgba(45, 45, 45, 0.60)" }}>
@@ -64,7 +65,7 @@ export default function Home() {
       </nav>
 
       <div
-        className={`fixed inset-0 top-[50px] backdrop-opacity-90 backdrop-blur-sm bg-white/10 z-50 transition-all duration-300 ease-in-out ${
+        className={`fixed inset-0 top-[50px] backdrop-blur-sm z-50 transition-all duration-300 ease-in-out ${
           isMenuOpen ? "opacity-95 " : "opacity-0 pointer-events-none"
         }`}
         style={{ backgroundColor: "rgba(45, 45, 45, 0.60)" }}>
@@ -77,9 +78,7 @@ export default function Home() {
             smooth={true}
             duration={300}
             offset={-50}
-            className="h-[15dvh] m-3 bg-white/10 bg-gray-400 bg-opacity-50 rounded-lg">
-            About
-          </Button>
+            className="h-[15dvh] m-3 bg-frost-button rounded-lg"></Button>
           <Button
             onClick={() => {
               setMenuOpen(false);
@@ -88,9 +87,7 @@ export default function Home() {
             smooth={true}
             duration={300}
             offset={-50}
-            className="h-[15dvh] m-3 bg-white/10 bg-gray-400 bg-opacity-50 rounded-lg">
-            Experience
-          </Button>
+            className="h-[15dvh] m-3 bg-frost-button rounded-lg"></Button>
           <Button
             onClick={() => {
               setMenuOpen(false);
@@ -99,9 +96,7 @@ export default function Home() {
             smooth={true}
             duration={300}
             offset={-50}
-            className="h-[15dvh] m-3 bg-white/10 bg-gray-400 bg-opacity-50 rounded-lg">
-            Projects
-          </Button>
+            className="h-[15dvh] m-3 bg-frost-button rounded-lg"></Button>
         </nav>
       </div>
 
@@ -112,42 +107,46 @@ export default function Home() {
           }`}>
           <div className="sm:fixed sm:top-0 sm:left-0 sm:w-[400px] sm:h-screen h-[300px] ml-[50px] hidden md:block">
             <div className="flex flex-col absolute top-1/2 -translate-y-1/2 ">
-              <Button to={"about"} smooth={true} duration={300} offset={-50}>
-                <div className="flex flex-col items-center text-center w-[100px]">
+              <div className="flex flex-col items-center text-center w-[100px]">
+                <Button to={"about"} smooth={true} duration={300} offset={-50}>
                   <div
-                    className={`w-2 opacity-85 h-2 rounded-full leading-7 bg-gray-400 hover:bg-white  ${
+                    className={`w-2 opacity-80 h-2 rounded-full leading-7 transition-all duration-300 ${
                       activeSection === 0
-                        ? "bg-white"
-                        : "bg-gray-400 hover:bg-white"
+                        ? "bg-interaction-active m-3"
+                        : "bg-interaction-inactive hover:bg-interaction-active m-0"
                     }`}></div>
-                  <div className="w-px h-[75px] bg-gray-400 my-[10px]"></div>
-                </div>
-              </Button>
-              <Button
-                to={"experience"}
-                smooth={true}
-                duration={300}
-                offset={-50}>
-                <div className="flex flex-col items-center  text-center w-[100px]">
+                </Button>
+                <div className="w-px h-[75px] bg-interaction-inactive"></div>
+              </div>
+              <div className="flex flex-col items-center text-center w-[100px]">
+                <Button
+                  to={"experience"}
+                  smooth={true}
+                  duration={300}
+                  offset={-50}>
                   <div
-                    className={`w-2 opacity-85 h-2 rounded-full leading-7 bg-gray-400 hover:bg-white  ${
+                    className={`w-2 opacity-85 h-2 rounded-full leading-7 transition-all duration-300 ${
                       activeSection === 1
-                        ? "bg-white"
-                        : "bg-gray-400 hover:bg-white"
+                        ? "bg-interaction-active m-3"
+                        : "bg-interaction-inactive hover:bg-interaction-active m-0"
                     }`}></div>
-                  <div className="w-px h-[75px] bg-gray-400 my-[10px]"></div>
-                </div>
-              </Button>
-              <Button to={"projects"} smooth={true} duration={300} offset={-50}>
-                <div className="flex flex-col items-center text-center w-[100px]">
+                </Button>
+                <div className="w-px h-[75px] bg-interaction-inactive"></div>
+              </div>
+              <div className="flex flex-col items-center text-center w-[100px]">
+                <Button
+                  to={"projects"}
+                  smooth={true}
+                  duration={300}
+                  offset={-50}>
                   <div
-                    className={`w-2 opacity-85 h-2 rounded-full leading-7 bg-gray-400 hover:bg-white  ${
+                    className={`w-2 opacity-85 h-2 rounded-full leading-7 transition-all duration-300 ${
                       activeSection === 2
-                        ? "bg-white"
-                        : "bg-gray-400 hover:bg-white"
+                        ? "bg-interaction-active m-3"
+                        : "bg-interaction-inactive hover:bg-interaction-active m-0"
                     }`}></div>
-                </div>
-              </Button>
+                </Button>
+              </div>
             </div>
           </div>
           <motion.div
@@ -164,7 +163,7 @@ export default function Home() {
                       <div className="flex xl:flex-row flex-col gap-[50px] items-start">
                         <div>
                           <h4
-                            className={`leading-7 text-white transition-opacity duration-500 ease-in-out ${
+                            className={`leading-7 text-card-desc transition-opacity duration-500 ease-in-out ${
                               loaded ? "opacity-100" : "opacity-0"
                             }`}>
                             My name is Caleb. I'm a Software Developer and
@@ -207,8 +206,8 @@ export default function Home() {
                         <h4
                           className={`text-[20px] ${
                             activeSection === 1
-                              ? "text-title-light"
-                              : "text-title-dark"
+                              ? "text-interaction-active"
+                              : "text-interaction-nav-inactive"
                           }`}>
                           Experience
                         </h4>
@@ -238,8 +237,8 @@ export default function Home() {
                     <h4
                       className={`text-[20px] ${
                         activeSection === 2
-                          ? "text-title-light"
-                          : "text-title-dark"
+                          ? "text-interaction-active"
+                          : "text-interaction-nav-inactive"
                       }`}>
                       Projects
                     </h4>

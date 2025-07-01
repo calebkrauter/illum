@@ -1,3 +1,4 @@
+import { nav } from "framer-motion/client";
 import type { Config } from "tailwindcss";
 
 export default {
@@ -12,14 +13,30 @@ export default {
         background: "var(--background)",
         foreground: "var(--foreground)",
         title: {
-          light: "var(--title-light)",
-          dark: "var(--title-dark)",
+          light: "var(--x-light-gray)",
+          dark: "var(--dark-gray)",
           testred: "var(--testred)",
         },
-        bg: {
-          light: "var(--title-light)",
-          dark: "var(--title-dark)",
+        subTitle: {
+          light: "var(--subtitle)",
+          background: "var(--sandstone)",
+        },
+        frost: {
+          button: "var(--overlay-button)",
+          overlay: "var(--overlay)",
           testred: "var(--testred)",
+        },
+        interaction: {
+          active: "var(--interaction-active)",
+          inactive: "var(--interaction-inactive)",
+          nav: {
+            inactive: "var(--nav-interaction-inactive)",
+          },
+        },
+        card: {
+          extraDark: "var(--x-dark-gray)",
+          hover: "var(--popping-gray)",
+          desc: "var(--desc)",
         },
       },
     },
