@@ -3,14 +3,17 @@ import Image from "next/image";
 import React, { RefObject, useRef } from "react";
 import "rsuite/dist/rsuite-no-reset.min.css";
 import "react-vertical-timeline-component/style.min.css";
-import { motion, useScroll } from "framer-motion";
-import { Link, Element, Button } from "react-scroll";
+import { motion, useMotionValue, useScroll } from "framer-motion";
+import { Link, Element, Button as NavButton } from "react-scroll";
 import ProjectCard from "./components/project-card";
 import { useEffect, useState } from "react";
 import useScrollSpy from "react-use-scrollspy";
 import ConnectButtons from "./components/connect-buttons";
 import { Pivot as Hamburger } from "hamburger-react";
 import dictionary from "../dictionary.json";
+import { Button } from "rsuite";
+import { select } from "framer-motion/client";
+const options = ["First", "Second", "Third"];
 
 export default function Home() {
   const [hasScrolled, setHasScrolled] = useState(false);
@@ -18,7 +21,9 @@ export default function Home() {
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const [loaded, setLoaded] = useState(false);
   const [isVisible, setIsVisible] = useState(false);
+  const [dark, light] = useState("dark");
 
+  const [selected, setSelected] = useState(0);
   const sectionRefs = [
     useRef<HTMLElement>(null),
     useRef<HTMLElement>(null),
@@ -29,15 +34,77 @@ export default function Home() {
     sectionElementRefs: sectionRefs,
     offsetPx: -300,
   });
+  useEffect(() => {
+    const localStorageIndex = localStorage.getItem("themeIndex");
+    if (localStorageIndex) setSelected(parseInt(localStorageIndex));
+  }, []);
 
   useEffect(() => {
     const unsubscribe = scrollY.on("change", (y) => {
       setHasScrolled(y > 50);
     });
-    return () => unsubscribe();
-  }, [scrollY]);
 
-  console.log(activeSection);
+    if (
+      selected === 0 &&
+      window.matchMedia("(prefers-color-scheme: dark)").matches
+    ) {
+      document.body.classList.remove("light", "dark");
+      document.body.classList.add("dark");
+      storeThemeSelection(0);
+    } else if (
+      selected === 0 &&
+      window.matchMedia("(prefers-color-scheme: light)").matches
+    ) {
+      document.body.classList.remove("light", "dark");
+      document.body.classList.add("light");
+      storeThemeSelection(0);
+    }
+    if (selected === 1) {
+      document.body.classList.remove("light", "dark");
+      document.body.classList.add("dark");
+      storeThemeSelection(1);
+    } else if (selected === 2) {
+      document.body.classList.remove("light", "dark");
+      document.body.classList.add("light");
+      storeThemeSelection(2);
+    }
+    return () => unsubscribe();
+  }, [scrollY, selected]);
+  const [width, setWidth] = useState(50);
+  const [height, setHeight] = useState(20);
+
+  const storeThemeSelection = (index: number) => {
+    localStorage.setItem("themeIndex", index.toString());
+  };
+
+  const sizeUp = () => {
+    setWidth(50);
+    setHeight(35);
+  };
+
+  const sizeDown = () => {
+    setWidth(50);
+    setHeight(20);
+  };
+  const parentRef = useRef(null);
+  const [isDragging, setIsDragging] = useState(false);
+  const handleClick = () => {
+    sizeDown();
+    if (!isDragging) {
+      if (selected >= 2) {
+        setSelected(0);
+      } else {
+        setSelected(selected + 1);
+      }
+    }
+  };
+
+  const handleDrag = () => {
+    sizeDown();
+    setIsDragging(true);
+  };
+
+  const x = useMotionValue(0);
 
   return (
     <div>
@@ -58,6 +125,73 @@ export default function Home() {
           </div>
           <div className="fixed right-0 top-0 h-[50px] sm:mr-[75px] mr-[15px]">
             <div className="flex flex-row gap-5 items-center h-full ml-[75px]">
+              <div ref={parentRef} className="relative">
+                <motion.div
+                  style={{ x }}
+                  animate={{
+                    x: selected * 50,
+                    width: width,
+                    height: height,
+                  }}
+                  onAnimationComplete={sizeUp}
+                  transition={{
+                    type: "spring",
+                    stiffness: 1000,
+                    damping: 30,
+                    bounce: 1,
+                  }}
+                  drag="x"
+                  dragConstraints={parentRef}
+                  dragTransition={{
+                    power: 0,
+                    timeConstant: 50,
+                    // Snap calculated target to nearest 50 pixels
+                    modifyTarget: (target) => Math.round(target / 50) * 50,
+                    min: 0,
+                    max: 100,
+                    bounceStiffness: 500,
+                  }}
+                  onDrag={handleDrag}
+                  onClick={handleClick}
+                  onDragEnd={() => {
+                    setIsDragging(false);
+                    sizeUp();
+                    setSelected(Math.round(x.get() / 50));
+                  }}
+                  whileTap={{ cursor: "grabbing" }}
+                  dragElastic={0.01}
+                  className="absolute bottom-0 transform -translate-x-1/2 bg-white rounded-lg z-50 "></motion.div>
+                <Button
+                  className="w-[50px]"
+                  color="violet"
+                  appearance="primary"
+                  onClick={() => {
+                    setSelected(0), sizeDown();
+                  }}>
+                  default
+                </Button>
+                <Button
+                  className="w-[50px]"
+                  color="violet"
+                  appearance="primary"
+                  onClick={() => {
+                    setSelected(1), sizeDown();
+                  }}>
+                  {" "}
+                  default
+                </Button>
+                <Button
+                  className="w-[50px]"
+                  color="violet"
+                  appearance="primary"
+                  onClick={() => {
+                    setSelected(2), sizeDown();
+                  }}>
+                  {" "}
+                  default
+                </Button>
+              </div>
+
               <ConnectButtons />
             </div>
           </div>
@@ -70,7 +204,7 @@ export default function Home() {
         }`}
         style={{ backgroundColor: "rgba(45, 45, 45, 0.60)" }}>
         <nav className="flex flex-col justify-between">
-          <Button
+          <NavButton
             onClick={() => {
               setMenuOpen(false);
             }}
@@ -78,8 +212,8 @@ export default function Home() {
             smooth={true}
             duration={300}
             offset={-50}
-            className="h-[15dvh] m-3 bg-frost-button rounded-lg"></Button>
-          <Button
+            className="h-[15dvh] m-3 bg-frost-button rounded-lg"></NavButton>
+          <NavButton
             onClick={() => {
               setMenuOpen(false);
             }}
@@ -87,8 +221,8 @@ export default function Home() {
             smooth={true}
             duration={300}
             offset={-50}
-            className="h-[15dvh] m-3 bg-frost-button rounded-lg"></Button>
-          <Button
+            className="h-[15dvh] m-3 bg-frost-button rounded-lg"></NavButton>
+          <NavButton
             onClick={() => {
               setMenuOpen(false);
             }}
@@ -96,7 +230,7 @@ export default function Home() {
             smooth={true}
             duration={300}
             offset={-50}
-            className="h-[15dvh] m-3 bg-frost-button rounded-lg"></Button>
+            className="h-[15dvh] m-3 bg-frost-button rounded-lg"></NavButton>
         </nav>
       </div>
 
@@ -108,18 +242,22 @@ export default function Home() {
           <div className="sm:fixed sm:top-0 sm:left-0 sm:w-[400px] sm:h-screen h-[300px] ml-[50px] hidden md:block">
             <div className="flex flex-col absolute top-1/2 -translate-y-1/2 ">
               <div className="flex flex-col items-center text-center w-[100px]">
-                <Button to={"about"} smooth={true} duration={300} offset={-50}>
+                <NavButton
+                  to={"about"}
+                  smooth={true}
+                  duration={300}
+                  offset={-50}>
                   <div
                     className={`w-2 opacity-80 h-2 rounded-full leading-7 transition-all duration-300 ${
                       activeSection === 0
                         ? "bg-interaction-active m-3"
                         : "bg-interaction-inactive hover:bg-interaction-active m-0"
                     }`}></div>
-                </Button>
+                </NavButton>
                 <div className="w-px h-[75px] bg-interaction-inactive"></div>
               </div>
               <div className="flex flex-col items-center text-center w-[100px]">
-                <Button
+                <NavButton
                   to={"experience"}
                   smooth={true}
                   duration={300}
@@ -130,11 +268,11 @@ export default function Home() {
                         ? "bg-interaction-active m-3"
                         : "bg-interaction-inactive hover:bg-interaction-active m-0"
                     }`}></div>
-                </Button>
+                </NavButton>
                 <div className="w-px h-[75px] bg-interaction-inactive"></div>
               </div>
               <div className="flex flex-col items-center text-center w-[100px]">
-                <Button
+                <NavButton
                   to={"projects"}
                   smooth={true}
                   duration={300}
@@ -145,7 +283,7 @@ export default function Home() {
                         ? "bg-interaction-active m-3"
                         : "bg-interaction-inactive hover:bg-interaction-active m-0"
                     }`}></div>
-                </Button>
+                </NavButton>
               </div>
             </div>
           </div>
