@@ -1,23 +1,23 @@
 "use client";
 import Image from "next/image";
-import React, { RefObject, useRef } from "react";
+import React, { useRef } from "react";
 import "rsuite/dist/rsuite-no-reset.min.css";
 import "react-vertical-timeline-component/style.min.css";
 import { motion, useScroll } from "framer-motion";
-import { Link, Element, Button } from "react-scroll";
+import { Element, Button as NavButton } from "react-scroll";
 import ProjectCard from "./components/project-card";
 import { useEffect, useState } from "react";
 import useScrollSpy from "react-use-scrollspy";
 import ConnectButtons from "./components/connect-buttons";
 import { Pivot as Hamburger } from "hamburger-react";
 import dictionary from "../dictionary.json";
+import ThemeSwitcher from "./components/theme-switcher";
 
 export default function Home() {
-  const [hasScrolled, setHasScrolled] = useState(false);
   const { scrollY } = useScroll();
   const [isMenuOpen, setMenuOpen] = React.useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [isVisible, setIsVisible] = useState(false);
+  const [isMobileSize, setIsMobileSize] = useState(false);
 
   const sectionRefs = [
     useRef<HTMLElement>(null),
@@ -27,21 +27,29 @@ export default function Home() {
 
   const activeSection = useScrollSpy({
     sectionElementRefs: sectionRefs,
-    offsetPx: -120,
+    offsetPx: -300,
   });
 
   useEffect(() => {
-    const unsubscribe = scrollY.on("change", (y) => {
-      setHasScrolled(y > 50);
-    });
-    return () => unsubscribe();
-  }, [scrollY]);
+    const handleResize = () => {
+      if (window.innerWidth >= 768) {
+        setMenuOpen(false);
+        setIsMobileSize(false);
+      } else {
+        setIsMobileSize(true);
+      }
+    };
 
-  console.log(activeSection);
+    window.addEventListener("resize", handleResize);
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, [scrollY, isMobileSize]);
+
   return (
     <div>
       <nav
-        className={`fixed left-0 top-0 w-full h-[50px] bg-white/10 backdrop-blur-sm transition-opacity z-50 duration-500 ease-in-out ${
+        className={`fixed left-0 top-0 w-full h-[50px] bg-interaction-active/10 backdrop-blur-sm transition-opacity z-50 duration-500 ease-in-out ${
           loaded ? "backdrop-opacity-90 text-opacity-100" : "opacity-0"
         } ${isMenuOpen ? "rounded-b-0" : "rounded-b-lg"}`}
         style={{ backgroundColor: "rgba(45, 45, 45, 0.60)" }}>
@@ -51,12 +59,13 @@ export default function Home() {
             <Hamburger toggled={isMenuOpen} toggle={setMenuOpen} />
           </div>
           <div className="fixed left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 sm:translate-x-0 sm:left-auto sm:ml-[75px] items-center">
-            <h1 className="sm:text-2xl text-xl font-bold text-gray-300 z-50">
+            <h1 className="sm:text-2xl text-xl font-bold text-title-light z-50">
               CALEB KRAUTER
             </h1>
           </div>
           <div className="fixed right-0 top-0 h-[50px] sm:mr-[75px] mr-[15px]">
             <div className="flex flex-row gap-5 items-center h-full ml-[75px]">
+              <ThemeSwitcher className=" ease-in-out transition-opacity duration-500 opacity-0 md:opacity-100 pointer-events-none md:pointer-events-auto" />
               <ConnectButtons />
             </div>
           </div>
@@ -64,12 +73,12 @@ export default function Home() {
       </nav>
 
       <div
-        className={`fixed inset-0 top-[50px] backdrop-opacity-90 backdrop-blur-sm bg-white/10 z-50 transition-all duration-300 ease-in-out ${
+        className={`fixed inset-0 top-[50px] backdrop-blur-sm z-50 transition-all duration-300 ease-in-out ${
           isMenuOpen ? "opacity-95 " : "opacity-0 pointer-events-none"
-        }`}
+        } block md:hidden`}
         style={{ backgroundColor: "rgba(45, 45, 45, 0.60)" }}>
         <nav className="flex flex-col justify-between">
-          <Button
+          <NavButton
             onClick={() => {
               setMenuOpen(false);
             }}
@@ -77,10 +86,10 @@ export default function Home() {
             smooth={true}
             duration={300}
             offset={-50}
-            className="h-[15dvh] m-3 bg-white/10 bg-gray-400 bg-opacity-50 rounded-lg">
+            className="h-[15dvh] m-3 bg-frost-button rounded-lg text-3xl font-bold">
             About
-          </Button>
-          <Button
+          </NavButton>
+          <NavButton
             onClick={() => {
               setMenuOpen(false);
             }}
@@ -88,10 +97,10 @@ export default function Home() {
             smooth={true}
             duration={300}
             offset={-50}
-            className="h-[15dvh] m-3 bg-white/10 bg-gray-400 bg-opacity-50 rounded-lg">
+            className="h-[15dvh] m-3 bg-frost-button rounded-lg text-3xl font-bold">
             Experience
-          </Button>
-          <Button
+          </NavButton>
+          <NavButton
             onClick={() => {
               setMenuOpen(false);
             }}
@@ -99,9 +108,14 @@ export default function Home() {
             smooth={true}
             duration={300}
             offset={-50}
-            className="h-[15dvh] m-3 bg-white/10 bg-gray-400 bg-opacity-50 rounded-lg">
+            className="h-[15dvh] m-3 bg-frost-button rounded-lg text-3xl font-bold">
             Projects
-          </Button>
+          </NavButton>
+          <div className="flex h-[15dvh] m-3 bg-frost-button rounded-lg justify-center items-center">
+            <div style={{ transform: "scale(1.5)" }}>
+              <ThemeSwitcher className=" ease-in-out transition-opacity duration-500 md:opacity-0 opacity-100 md:pointer-events-none pointer-events-auto" />
+            </div>
+          </div>
         </nav>
       </div>
 
@@ -112,42 +126,50 @@ export default function Home() {
           }`}>
           <div className="sm:fixed sm:top-0 sm:left-0 sm:w-[400px] sm:h-screen h-[300px] ml-[50px] hidden md:block">
             <div className="flex flex-col absolute top-1/2 -translate-y-1/2 ">
-              <Button to={"about"} smooth={true} duration={300} offset={-50}>
-                <div className="flex flex-col items-center text-center w-[100px]">
+              <div className="flex flex-col items-center text-center w-[100px]">
+                <NavButton
+                  to={"about"}
+                  smooth={true}
+                  duration={300}
+                  offset={-50}>
                   <div
-                    className={`w-2 opacity-85 h-2 rounded-full leading-7 bg-gray-400 hover:bg-white  ${
+                    className={`w-2 opacity-80 h-2 rounded-full leading-7 transition-all duration-300 ${
                       activeSection === 0
-                        ? "bg-white"
-                        : "bg-gray-400 hover:bg-white"
+                        ? "bg-interaction-active m-3"
+                        : "bg-interaction-inactive hover:bg-interaction-active m-0"
                     }`}></div>
-                  <div className="w-px h-[75px] bg-gray-400 my-[10px]"></div>
-                </div>
-              </Button>
-              <Button
-                to={"experience"}
-                smooth={true}
-                duration={300}
-                offset={-50}>
-                <div className="flex flex-col items-center  text-center w-[100px]">
+                </NavButton>
+                <div className="w-px h-[75px] bg-interaction-inactive"></div>
+              </div>
+              <div className="flex flex-col items-center text-center w-[100px]">
+                <NavButton
+                  to={"experience"}
+                  smooth={true}
+                  duration={300}
+                  offset={-50}>
                   <div
-                    className={`w-2 opacity-85 h-2 rounded-full leading-7 bg-gray-400 hover:bg-white  ${
+                    className={`w-2 opacity-85 h-2 rounded-full leading-7 transition-all duration-300 ${
                       activeSection === 1
-                        ? "bg-white"
-                        : "bg-gray-400 hover:bg-white"
+                        ? "bg-interaction-active m-3"
+                        : "bg-interaction-inactive hover:bg-interaction-active m-0"
                     }`}></div>
-                  <div className="w-px h-[75px] bg-gray-400 my-[10px]"></div>
-                </div>
-              </Button>
-              <Button to={"projects"} smooth={true} duration={300} offset={-50}>
-                <div className="flex flex-col items-center text-center w-[100px]">
+                </NavButton>
+                <div className="w-px h-[75px] bg-interaction-inactive"></div>
+              </div>
+              <div className="flex flex-col items-center text-center w-[100px]">
+                <NavButton
+                  to={"projects"}
+                  smooth={true}
+                  duration={300}
+                  offset={-50}>
                   <div
-                    className={`w-2 opacity-85 h-2 rounded-full leading-7 bg-gray-400 hover:bg-white  ${
+                    className={`w-2 opacity-85 h-2 rounded-full leading-7 transition-all duration-300 ${
                       activeSection === 2
-                        ? "bg-white"
-                        : "bg-gray-400 hover:bg-white"
+                        ? "bg-interaction-active m-3"
+                        : "bg-interaction-inactive hover:bg-interaction-active m-0"
                     }`}></div>
-                </div>
-              </Button>
+                </NavButton>
+              </div>
             </div>
           </div>
           <motion.div
@@ -164,21 +186,21 @@ export default function Home() {
                       <div className="flex xl:flex-row flex-col gap-[50px] items-start">
                         <div>
                           <h4
-                            className={`leading-7 text-white transition-opacity duration-500 ease-in-out ${
+                            className={`leading-7 text-card-desc transition-opacity duration-500 ease-in-out ${
                               loaded ? "opacity-100" : "opacity-0"
                             }`}>
-                            My name is Caleb. I'm a Software Developer and
+                            My name is Caleb. I&apos;m a Software Developer and
                             part-time barista.{<br />}
                             {<br />}
-                            When I'm not at home writing code or at work making
-                            coffee, you can often find me spending time with
-                            family and friends building relationships that
+                            When I&apos;m not at home writing code or at work
+                            making coffee, you can often find me spending time
+                            with family and friends building relationships that
                             matter most. I am a Software Developer with
                             professional IT Help Desk experience. Soon after
                             graduating I was given an opportunity at an
                             internship where I now develop dynamic React
                             Components with a great team and a solid mission.
-                            I've contributed to several projects using
+                            I&apos;ve contributed to several projects using
                             JavaScript, TypeScript, React, Java, C, Python,
                             Erlang among other technologies.
                           </h4>
@@ -207,8 +229,8 @@ export default function Home() {
                         <h4
                           className={`text-[20px] ${
                             activeSection === 1
-                              ? "text-gray-200"
-                              : "text-gray-400"
+                              ? "text-interaction-active"
+                              : "text-interaction-nav-inactive"
                           }`}>
                           Experience
                         </h4>
@@ -237,7 +259,9 @@ export default function Home() {
                     name="projects">
                     <h4
                       className={`text-[20px] ${
-                        activeSection === 2 ? "text-gray-200" : "text-gray-400"
+                        activeSection === 2
+                          ? "text-interaction-active"
+                          : "text-interaction-nav-inactive"
                       }`}>
                       Projects
                     </h4>
