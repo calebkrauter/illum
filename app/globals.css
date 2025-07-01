@@ -1,9 +1,33 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+@media (prefers-color-scheme: light) {
+  body {  
+  --background: oklch(97.4% 0.00533 16.106);
+  --sandstone: oklch(97.4% 0.00533 16.106);
+
+  --foreground: rgba(20, 20, 20, 1);
+  --x-light-gray: oklch(99.557% 0.0021 14.222);
+    --white: oklch(99.557% 0.0021 14.222);
+
+  --subtitle: oklch(37.801% 0.03267 18.638);
+
+  --dark-gray: oklch(50% 0.01 260);
+  --x-dark-gray:oklch(27.8% 0.033 256.848)
+  --btn-light: oklch(70% 0.01 260 / 0.3);
+  --overlay-button: oklch(50% 0.01 260 / 0.3);
+  --overlay: oklch(52.947% 0.12495 260.355 / 0.6);
+  --interaction-active: oklch(0% 0 0);
+  --interaction-inactive: oklch(71.019% 0.17551 22.587 / 0.795);
+  --testred: rgb(129, 38, 38);
+  --popping-gray: oklch(43.709% 0.07108 20.317 / 0.1);
+  --desc: oklch(48.395% 0.02633 17.987);
+  }
+}
+
 .light {
   --background: oklch(97.4% 0.00533 16.106);
-    --sandstone: oklch(97.4% 0.00533 16.106);
+  --sandstone: oklch(97.4% 0.00533 16.106);
 
   --foreground: rgba(20, 20, 20, 1);
   --x-light-gray: oklch(99.557% 0.0021 14.222);
@@ -43,11 +67,11 @@
   --popping-gray: oklch(43.709% 0.07108 20.317 / 0.1);
   --desc: oklch(48.395% 0.02633 17.987);
 }
-
-  .dark {
+@media (prefers-color-scheme: dark) {
+  body {
     --background: oklch(17.9% 0.00613 285.724);
     --sandstone: oklch(97.4% 0.00533 16.106);
-  --subtitle: oklch(100% 0.00011 271.152);
+    --subtitle: oklch(100% 0.00011 271.152);
 
     --foreground: rgba(245, 245, 245, 1);
     --light-gray: oklch(92.8% 0.006 264.531);
@@ -66,6 +90,31 @@
 
     --testred: rgba(240, 5, 5, 1);
   }
+}
+
+.dark {
+  --background: oklch(17.9% 0.00613 285.724);
+    --sandstone: oklch(97.4% 0.00533 16.106);
+    --subtitle: oklch(100% 0.00011 271.152);
+
+    --foreground: rgba(245, 245, 245, 1);
+    --light-gray: oklch(92.8% 0.006 264.531);
+    --desc: oklch(92.8% 0.006 264.531);
+
+    --dark-gray: oklch(70.7% 0.022 261.325);
+    --btn-light: oklch(92.8% 0.006 264.531 / 0.3);
+    --overlay-button: oklch(70.7% 0.022 261.325 / 0.3);
+    --overlay: oklch(19.4% 0.007 270 / 0.6);
+    --interaction-white: oklch(100% 0.00011 271.152);
+    --interaction-gray: oklch(70.7% 0.022 261.325 / 0.2);
+    --popping-gray: oklch(100% 0 0 / 0.1);
+    --interaction-active: oklch(71.019% 0.17551 22.587 / 0.795);
+    --interaction-inactive: oklch(50.06% 0.00125 14.689 / 0.795);
+    --nav-interaction-inactive: oklch(97.4% 0.00533 16.106);
+
+    --testred: rgba(240, 5, 5, 1);
+}
+
 
 
 body {

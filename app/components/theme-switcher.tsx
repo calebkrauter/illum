@@ -12,6 +12,7 @@ export default function ThemeSwitcher({ className }: ThemeSwitcherProps) {
   const [isDragging, setIsDragging] = useState(false);
   const { selected, setSelected } = useContext(ThemeContext);
   const [isMobile, setIsMobile] = useState(false);
+  const [hasLoaded, setHasLoaded] = useState(false);
   const handleClick = () => {
     if (!isDragging) {
       if (selected >= 2) {
@@ -32,8 +33,6 @@ export default function ThemeSwitcher({ className }: ThemeSwitcherProps) {
     "/dark-mode.svg",
     "/light-mode.svg",
   ];
-  const [width, setWidth] = useState(50);
-  const [height, setHeight] = useState(40);
 
   const storeThemeSelection = (index: number) => {
     localStorage.setItem("themeIndex", index.toString());
@@ -41,10 +40,17 @@ export default function ThemeSwitcher({ className }: ThemeSwitcherProps) {
 
   useEffect(() => {
     const localStorageIndex = localStorage.getItem("themeIndex");
-    if (localStorageIndex) setSelected(parseInt(localStorageIndex));
+    if (localStorageIndex !== null) {
+      const index = parseInt(localStorageIndex);
+      console.log("Restoring theme:", index);
+      setSelected(index);
+      storeThemeSelection(index);
+    }
+    setHasLoaded(true);
   }, [setSelected]);
 
   useEffect(() => {
+    if (!hasLoaded) return;
     const onRefocus = () => {};
     const handleResize = () => {
       x.set(pillPositions[selected]);
@@ -52,6 +58,7 @@ export default function ThemeSwitcher({ className }: ThemeSwitcherProps) {
     const check = () => setIsMobile(window.innerWidth < 768);
     check();
     window.addEventListener("resize", check);
+
     if (
       selected === 0 &&
       window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -92,7 +99,7 @@ export default function ThemeSwitcher({ className }: ThemeSwitcherProps) {
       window.removeEventListener("resize", handleResize);
       window.removeEventListener("resize", check);
     };
-  }, [selected, x]);
+  }, [selected, setSelected, x]);
 
   const handleButton = (index: number) => {
     setSelected(index);
@@ -103,8 +110,8 @@ export default function ThemeSwitcher({ className }: ThemeSwitcherProps) {
         style={{ x }}
         animate={{
           x: selected * 50,
-          width: width,
-          height: height,
+          width: 50,
+          height: 40,
         }}
         transition={{
           type: "spring",
