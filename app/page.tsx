@@ -11,7 +11,8 @@ import useScrollSpy from "react-use-scrollspy";
 import ConnectButtons from "./components/connect-buttons";
 import { Pivot as Hamburger } from "hamburger-react";
 import dictionary from "../dictionary.json";
-import { Button } from "rsuite";
+// import { Button } from "rsuite";
+import { Button } from "@heroui/button";
 import { select } from "framer-motion/client";
 const options = ["First", "Second", "Third"];
 
@@ -43,7 +44,9 @@ export default function Home() {
     const unsubscribe = scrollY.on("change", (y) => {
       setHasScrolled(y > 50);
     });
-
+    const onRefocus = () => {
+      sizeUp();
+    };
     if (
       selected === 0 &&
       window.matchMedia("(prefers-color-scheme: dark)").matches
@@ -68,7 +71,19 @@ export default function Home() {
       document.body.classList.add("light");
       storeThemeSelection(2);
     }
-    return () => unsubscribe();
+    window.addEventListener("focus", onRefocus);
+    window.addEventListener("pointerdown", onRefocus);
+    window.addEventListener("scroll", onRefocus);
+    document.addEventListener("visibilitychange", () => {
+      if (document.visibilityState === "visible") onRefocus();
+    });
+    return () => {
+      window.removeEventListener("focus", onRefocus);
+      document.removeEventListener("visibilitychange", onRefocus);
+      window.removeEventListener("pointerdown", onRefocus);
+      window.removeEventListener("scroll", onRefocus);
+      unsubscribe();
+    };
   }, [scrollY, selected]);
   const [width, setWidth] = useState(50);
   const [height, setHeight] = useState(20);
@@ -79,7 +94,7 @@ export default function Home() {
 
   const sizeUp = () => {
     setWidth(50);
-    setHeight(35);
+    setHeight(40);
   };
 
   const sizeDown = () => {
@@ -105,7 +120,11 @@ export default function Home() {
   };
 
   const x = useMotionValue(0);
-
+  const themeSourceChoice = [
+    "/system.svg",
+    "/dark-mode.svg",
+    "/light-mode.svg",
+  ];
   return (
     <div>
       <nav
@@ -125,7 +144,7 @@ export default function Home() {
           </div>
           <div className="fixed right-0 top-0 h-[50px] sm:mr-[75px] mr-[15px]">
             <div className="flex flex-row gap-5 items-center h-full ml-[75px]">
-              <div ref={parentRef} className="relative">
+              <div ref={parentRef} className="flex flex-row relative">
                 <motion.div
                   style={{ x }}
                   animate={{
@@ -154,41 +173,61 @@ export default function Home() {
                   onDrag={handleDrag}
                   onClick={handleClick}
                   onDragEnd={() => {
-                    setIsDragging(false);
                     sizeUp();
+                    setIsDragging(false);
                     setSelected(Math.round(x.get() / 50));
                   }}
                   whileTap={{ cursor: "grabbing" }}
                   dragElastic={0.01}
-                  className="absolute bottom-0 transform -translate-x-1/2 bg-white rounded-lg z-50 "></motion.div>
+                  className={`flex absolute bottom-0 transform -translate-x-1/2 bg-subTitle-background rounded-lg z-50 `}>
+                  <motion.div
+                    key={themeSourceChoice[selected]}
+                    initial={{ opacity: 0, scale: 1, filter: "blur(5px)" }}
+                    animate={{ opacity: 1, scale: 1, filter: "blur(0px)" }}
+                    exit={{ opacity: 0, scale: 0.5, filter: "blur(5px)" }}
+                    transition={{ duration: 0.2, ease: "easeInOut" }}
+                    className="relative mx-auto my-auto w-full h-full max-w-[24px] max-h-[24px]">
+                    <Image
+                      className="mx-auto pointer-events-none w-full h-full max-w-[24px] max-h-[24px]"
+                      src={themeSourceChoice[selected]}
+                      alt={"system theme icon"}
+                      width={24}
+                      height={24}></Image>
+                  </motion.div>
+                </motion.div>
                 <Button
-                  className="w-[50px]"
-                  color="violet"
-                  appearance="primary"
-                  onClick={() => {
+                  className="flex w-[50px] rounded-l-lg h-[40px] my-auto bg-red-300"
+                  onPress={() => {
                     setSelected(0), sizeDown();
                   }}>
-                  default
+                  <Image
+                    src={"/system.svg"}
+                    alt={"system theme icon"}
+                    width={24}
+                    height={24}></Image>
                 </Button>
                 <Button
-                  className="w-[50px]"
-                  color="violet"
-                  appearance="primary"
-                  onClick={() => {
+                  className="flex w-[50px] rounded-none h-[40px] my-auto bg-red-300"
+                  onPress={() => {
                     setSelected(1), sizeDown();
                   }}>
-                  {" "}
-                  default
+                  <Image
+                    src={"/dark-mode.svg"}
+                    alt={"system theme icon"}
+                    width={24}
+                    height={24}></Image>
                 </Button>
+
                 <Button
-                  className="w-[50px]"
-                  color="violet"
-                  appearance="primary"
-                  onClick={() => {
+                  className="flex w-[50px] rounded-r-lg h-[40px] my-auto bg-red-300"
+                  onPress={() => {
                     setSelected(2), sizeDown();
                   }}>
-                  {" "}
-                  default
+                  <Image
+                    src={"/light-mode.svg"}
+                    alt={"system theme icon"}
+                    width={24}
+                    height={24}></Image>
                 </Button>
               </div>
 
