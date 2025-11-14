@@ -1,6 +1,6 @@
 # Portfolio Web App (illum)
 
-A digital resume sharing my experience in Software Development, related projects I've developed and an introduction about myself.
+Get to know me, projects I've developed and my experience as a Software Developer through my digital resume.
 
 ## Tech Stack
 
