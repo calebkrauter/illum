@@ -1,35 +1,41 @@
-name: Release and Tag on Version Change
+name: Release on Version Change
+
 on:
   push:
-    paths:
-      - 'illum/package.json'
+    branches:
+      - main
+
 jobs:
-  release-and-tag:
+  release:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: actions/setup-node@v6
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
         with:
-          node-version: 'lts/*'
-      - run: echo "running npm install"
-      - run: npm install
-        working-directory: illum
-      - name: Get Version
-        id: get_version
+          node-version: '20'
+
+      - name: Get package version
+        id: version
         run: |
-          PACKAGE_VERSION=$(node -p "JSON.parse(require('fs').readFileSync('illum/package.json','utf8')).version")
+          PACKAGE_VERSION=$(jq -r .version package.json)
           echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
 
-      - name: Create Git tag
-        run: |
-          git config user.name "github-actions"
-          git config user.email "github-actions@github.com"
-          git tag "v${{ env.PACKAGE_VERSION }}"
-          git push https://x-access-token:${{ secrets.GITHUB_TOKEN }}@github.com/${{ github.repository }} v${{ env.PACKAGE_VERSION }}
-
-      - name: Create GitHub release
-        uses: softprops/action-gh-release@v2.4.2
+      - name: Create tag and release
+        uses: softprops/action-gh-release@v1
         with:
-          tag_name: "v${{ env.PACKAGE_VERSION }}"
+          tag_name: v${{ env.PACKAGE_VERSION }}
+          name: Release v${{ env.PACKAGE_VERSION }}
+          draft: false
+          prerelease: false
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Push tag
+        run: |
+          git config --local user.name "github-actions[bot]"
+          git config --local user.email "github-actions[bot]@users.noreply.github.com"
+          git tag v${{ env.PACKAGE_VERSION }}
+          git push origin v${{ env.PACKAGE_VERSION }}
