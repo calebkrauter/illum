@@ -11,10 +11,8 @@ jobs:
           node-version: 'lts/*'
       - run: echo "running npm install"
       - run: npm install
-        working-directory: Illum
       - run: echo "running linter"
       - run: npm run lint
-        working-directory: Illum
 
 
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
