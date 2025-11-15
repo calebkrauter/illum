@@ -1,0 +1,33 @@
+name: Release and Tag on Version Change
+on:
+  push:
+    paths:
+      - 'illum/package.json'
+jobs:
+  release-and-tag:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v5
+      - uses: actions/setup-node@v6
+        with:
+          node-version: 'lts/*'
+      - run: echo "running npm install"
+      - run: npm install
+        working-directory: illum
+      - name: Get Version
+        id: get_version
+        run: |
+          echo "PACKAGE_VERSION=$(node -p \"require('./illum/package.json').version\")" >> $GITHUB_ENV
+      - name: Create Git tag
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git tag "v${PACKAGE_VERSION}"
+          git push origin "v${PACKAGE_VERSION}"
+
+      - name: Create GitHub release
+        uses: softprops/action-gh-release@v2.4.2
+        with:
+          tag_name: "v${{ env.PACKAGE_VERSION }}"
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
