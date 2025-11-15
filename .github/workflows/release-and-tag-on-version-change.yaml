@@ -25,6 +25,7 @@ jobs:
         working-directory: illum
         run: |
           PACKAGE_VERSION=$(jq -r .version package.json)
+          echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
           echo "::notice::Detected package version: $PACKAGE_VERSION"
           
       - name: Create tag and release
