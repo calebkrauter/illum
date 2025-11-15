@@ -7,7 +7,7 @@ on:
   push:
     branches:
       - main
-    paths: ['package.json']
+    paths: ['illum/package.json']
 
 jobs:
   release:
