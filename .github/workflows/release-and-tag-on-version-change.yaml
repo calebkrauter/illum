@@ -17,8 +17,9 @@ jobs:
       - name: Get Version
         id: get_version
         run: |
-          PACKAGE_VERSION=$(node -e "import('./illum/package.json', {assert:{type:'json'}}).then(pkg => console.log(pkg.version))")
+          PACKAGE_VERSION=$(node -p "JSON.parse(require('fs').readFileSync('illum/package.json','utf8')).version")
           echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
+
 
       - name: Create Git tag
         run: |
