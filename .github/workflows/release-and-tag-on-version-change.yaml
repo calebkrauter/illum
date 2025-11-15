@@ -26,13 +26,6 @@ jobs:
         run: |
           PACKAGE_VERSION=$(jq -r .version package.json)
           echo "::notice::Detected package version: $PACKAGE_VERSION"
-
-      - name: Push tag
-        run: |
-          git config --local user.name "github-actions[bot]"
-          git config --local user.email "github-actions[bot]@users.noreply.github.com"
-          git tag v${{ env.PACKAGE_VERSION }}
-          git push origin v${{ env.PACKAGE_VERSION }}
           
       - name: Create tag and release
         uses: softprops/action-gh-release@v2.4.2
