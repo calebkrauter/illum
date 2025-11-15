@@ -1,6 +1,6 @@
 {
-  "name": "illums",
-  "version": "0.1.3",
+  "name": "illum",
+  "version": "0.1.0",
   "private": true,
   "scripts": {
     "dev": "next dev",
