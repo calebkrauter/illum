@@ -2,7 +2,7 @@ name: Test on Push
 run-name: ${{ github.actor }} running tests.
 on: [push]
 jobs:
-  lint:
+  test:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v5
@@ -13,7 +13,7 @@ jobs:
       - run: npm install
         working-directory: illum
       - run: echo "running tests"
-      - run: npm test
+      - run: npm test a
         working-directory: illum
       - run: echo "🎉 The job was automatically triggered by a ${{ github.event_name }} event."
       - run: echo "🐧 This job is now running on a ${{ runner.os }} server hosted by GitHub!"
