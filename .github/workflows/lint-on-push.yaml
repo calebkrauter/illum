@@ -1,5 +1,5 @@
 name: Lint on Push
-run-name: ${{ github.actor }} is testing out GitHub Actions
+run-name: ${{ github.actor }} is linting.
 on: [push]
 jobs:
   lint:
