@@ -1,5 +1,4 @@
 'use client'
-import { useEffect, useState} from 'react'
 import {Enviornment} from '../config'
 import release from '../release.json'
 
