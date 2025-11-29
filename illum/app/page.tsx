@@ -1,65 +1,38 @@
-import Image from 'next/image'
-// import styles from './page.module.css'
+'use client'
+import { useEffect, useState} from 'react'
+import {Enviornment} from '../config'
+import release from '../release.json'
+
 export default function Home() {
+  const enviornment = process.env.ENVIORNMENT
   return (
-    <div >
-      <main >
-        <Image
-          
-          src='/next.svg'
-          alt='Next.js logo'
-          width={100}
-          height={20}
-          priority
-        />
-        <div >
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{' '}
-            <a
-              href='https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              Templates
-            </a>{' '}
-            or the{' '}
-            <a
-              href='https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app'
-              target='_blank'
-              rel='noopener noreferrer'
-            >
-              Learning
-            </a>{' '}
-            center.
-          </p>
-        </div>
-        <div >
-          <a
+    // https://github.com/calebkrauter/illum/commit/c09de921fd95d14c91cd06a80d57e9eab17f4a1e
+    <div>
+      {enviornment !== Enviornment.prod && (
+        <nav>
+          <div className='releaseText center'>
+            <a href='https://github.com/calebkrauter/illum/tree/main' target='_blank'>
+              {`${release.branch}`}
+            </a>
+            <div className='space'/>
+            <a href={`https://github.com/calebkrauter/illum/commit/${release.sha}`} target='_blank'>
+            commit
+            </a>
+            <div className='space'/>
+            <a href={`https://github.com/calebkrauter/illum/releases/tag/${release.version}`} target='_blank'>
+              {release.version}
+            </a>
+            <div className='space'/>
+            <div>{release.enviornment}</div>
+
             
-            href='https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            <Image
-              
-              src='/vercel.svg'
-              alt='Vercel logomark'
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            
-            href='https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app'
-            target='_blank'
-            rel='noopener noreferrer'
-          >
-            Documentation
-          </a>
-        </div>
-      </main>
+          </div>
+        </nav>
+      )}
+      
+      <div>
+        text
+      </div>
     </div>
   )
 }

@@ -3,12 +3,13 @@
   "version": "0.0.1",
   "private": true,
   "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start",
+    "dev": "next dev && ./release.sh",
+    "build": "next build && ./release.sh",
+    "start": "next start && ./release.sh",
     "lint": "eslint",
     "test": "jest --watch --coverage",
-    "testOnPush": "jest --coverage a"
+    "testOnPush": "jest --coverage a",
+    "show-env": "dotenv -e .env -- node -p \"process.env.ENVIORNMENT\""
   },
   "dependencies": {
     "next": "16.0.3",
@@ -24,6 +25,7 @@
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
+    "dotenv-cli": "^11.0.0",
     "eslint": "^9",
     "eslint-config-next": "16.0.3",
     "jest": "^30.2.0",
