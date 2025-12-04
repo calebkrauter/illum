@@ -1,0 +1,41 @@
+permissions:
+  contents: write
+
+name: Release on Version Change
+
+on:
+  push:
+    branches:
+      - main
+    paths:
+      - 'illum/package.json'
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v6
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version: 'lts/*'
+
+      - name: Get package version
+        id: version
+        working-directory: illum
+        run: |
+          PACKAGE_VERSION=$(jq -r .version package.json)
+          echo "PACKAGE_VERSION=$PACKAGE_VERSION" >> $GITHUB_ENV
+          echo "::notice::Detected package version: $PACKAGE_VERSION"
+          
+      - name: Create tag and release
+        uses: softprops/action-gh-release@v2.4.2
+        with:
+          tag_name: ${{ env.PACKAGE_VERSION }}
+          name: Release ${{ env.PACKAGE_VERSION }}
+          draft: false
+          prerelease: false
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
