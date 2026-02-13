@@ -2,7 +2,8 @@ name: Conventional Commits on Push
 
 on:
   push:
-
+  workflow_call:
+  
 jobs:
   check:
     runs-on: ubuntu-latest
