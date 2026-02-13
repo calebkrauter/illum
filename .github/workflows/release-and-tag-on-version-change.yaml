@@ -4,8 +4,9 @@ on:
     branches:
       - main
     paths:
-      - 'illum/package.json'
-
+      - 'package.json'
+  workflow_call:
+  
 jobs:
   release:
     runs-on: ubuntu-latest
